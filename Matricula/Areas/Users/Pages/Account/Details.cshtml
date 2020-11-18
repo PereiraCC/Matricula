@@ -1,0 +1,104 @@
+﻿@page
+@model DetailsModel
+@{
+    ViewData["Title"] = "Detalle Usuario";
+    var name = Model.Input.DataUser.Nombre + " " + Model.Input.DataUser.PrimerApellido;
+    var name2 = Model.Input.DataUser.Nombre + " " + Model.Input.DataUser.PrimerApellido + " " + Model.Input.DataUser.SegundoApellido;
+
+}
+
+<div class="container">
+    <h1>@name</h1><br />
+    <div class="row">
+        <div class="col-sm ">
+            <div class="card text-center" style="width: 21rem;">
+                <div class="card-header ">
+                    <img class='imageUserDetails' src="~/lib/Image/no_avatar.png" />
+                </div>
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>@name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>Rol: @Model.Input.DataUser.Rol </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Informacion
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Identificacion
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Identificacion</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre Completo
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@name2</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Correo electronico
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.CorreoElectronico</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Telefono
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Telefono</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form asp-area="Users" asp-page="Register" method="post">
+                                        @{
+                                            var dataUser = JsonConvert.SerializeObject(Model.Input.DataUser);
+                                        }
+
+                                        <input type="hidden" name="DataUser" value="@dataUser" />
+                                        <input type="submit" value="Editar" class="btn btn-success ">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

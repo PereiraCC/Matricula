@@ -32,7 +32,7 @@
             <div class="col-xs-6 col-md-2">
                 <div class="card text-center">
                     <div class="card-header ">
-                        <a asp-route-id="@item.Identificacion" asp-area="User" asp-page="/Account/Details">
+                        <a asp-route-id="@item.Identificacion" asp-area="Users" asp-page="/Account/Details">
                             <img class='imageUsers' src="~/lib/Image/no_avatar.png" />
                         </a>
                     </div>
@@ -58,6 +58,13 @@
                                         <div class="text-center">
                                             <p>Rol: @Html.DisplayFor(modelItem => item.Rol)</p>
                                         </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a asp-route-id="@item.Identificacion" asp-area="Users" asp-page="/Account/Details">
+                                            <input type="submit" value="Detalle" class="btn btn-success ">
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>

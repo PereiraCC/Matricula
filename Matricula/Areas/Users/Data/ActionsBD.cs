@@ -158,6 +158,55 @@ namespace Matricula.Areas.Users.Data
             return personas;
         }
 
+        public InputModelRegister getUn_Usuario(string id)
+        {
+            int identificador = Int32.Parse(id);
+            ArrayList roles = new ArrayList();
+            roles = getRoles();
+            InputModelRegister persona = new InputModelRegister();
+            //connection.Open();
+            SqlCommand cmd = new SqlCommand("ConsultarUnUsuario", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@cedula", identificador));
+            SqlDataReader reader = cmd.ExecuteReader();
 
+            while (reader.Read())
+            {
+                persona.Identificacion = reader["Cedula"].ToString();
+                persona.Nombre = reader["Nombre"].ToString();
+                persona.PrimerApellido = reader["Primer_Apellido"].ToString();
+                persona.SegundoApellido = reader["Segundo_Apellido"].ToString();
+                persona.FechaNacimiento = reader["Fecha_Nacimiento"].ToString();
+                persona.CorreoElectronico = reader["Correo_Electronico"].ToString();
+                persona.Telefono = reader["Telefono"].ToString();
+                persona.Direccion = reader["Direccion"].ToString();
+                persona.Password = "No disponible";
+
+                if (Int32.Parse(reader["idRol"].ToString()) == 1)
+                {
+                    persona.Rol = roles[0].ToString();
+                }
+                else if (Int32.Parse(reader["idRol"].ToString()) == 2)
+                {
+                    persona.Rol = roles[1].ToString();
+                }
+                else if (Int32.Parse(reader["idRol"].ToString()) == 3)
+                {
+                    persona.Rol = roles[2].ToString();
+                }
+
+                if (persona.Rol.Equals("Admin"))
+                {
+                    persona.Carrera = "No disponible";
+                }
+                else
+                {
+                    persona.Carrera = reader["NombreCarrera"].ToString();
+                }
+            }
+            reader.Close();
+
+            return persona;
+        }
     }
 }

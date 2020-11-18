@@ -26,8 +26,15 @@ using Matricula.Areas.Users.Pages;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\Areas\Users\Pages\_ViewImports.cshtml"
+using Newtonsoft.Json;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d0c9dcd65717349af92588cd0817b772b411dbd4", @"/Areas/Users/Pages/_ViewStart.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"6baac984a90ad9b88bda230571d232fb97ff2ef3", @"/Areas/Users/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"7c035ee612d66e75329fc7ed6bd4915045aaadef", @"/Areas/Users/Pages/_ViewImports.cshtml")]
     public class Areas_Users_Pages__ViewStart : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998
