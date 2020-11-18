@@ -44,6 +44,9 @@ namespace Matricula.Areas.Users.Models
 
         [Required(ErrorMessage = "El campo Rol es requerido")]
         public string Rol { get; set; }
-       
+
+        public string Carrera { get; set; }
+
+
     }
 }

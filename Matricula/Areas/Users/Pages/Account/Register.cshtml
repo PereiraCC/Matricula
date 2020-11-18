@@ -5,9 +5,10 @@
 }
 <html>
     <head>
-        <title></title>
+        <link rel="stylesheet" href="~/css/Register.css" />
+        <script type="text/javascript" src="~/js/Registrar.js"></script>
     </head>
-    <body>
+    <body onload="iniciar()">
         <div class="container p-4">
             <form method="post" enctype="multipart/form-data" autocomplete="off">
                 <div class="col-xs-6 col-md-5">
@@ -65,10 +66,15 @@
                                             </div>
                                             <div class="form-group">
                                                 <input asp-for="Input.Password" placeholder="Contraseña" class="form-control" type="password" />
-                                                <span asp-validation-for="Input.Password" class="text-danger"></span><br />
+                                                <span asp-validation-for="Input.Password" class="text-danger"></span>
                                             </div>
-                                            <div class="form-group">
-                                                @*@Html.DropDownList("Input.Role", new SelectList(Model.Input.rolesLista, "Text", "Text"), "Seleccione un Rol", new { @class = "form-control" });*@
+                                            <div class="form-group" id="rol">
+                                                @Html.DropDownList("Input.Rol", new SelectList(Model.Input.rolesLista, "Text", "Text"), "Seleccione un Rol", new { @onchange = "actualizacionCombo(this.value)", @class = "form-control" })
+                                                <span asp-validation-for="Input.Rol" class="text-danger"></span>
+                                            </div>
+                                            <div class="form-group" id="carrera">
+                                                @Html.DropDownList("Input.Carrera", new SelectList(Model.Input.carrerasLista, "Text", "Text"), "Seleccione un Carrera", new { @class = "form-control" })
+                                                <span asp-validation-for="Input.Carrera" class="text-danger"></span><br />
                                             </div>
                                             <div class="form-group text-center">
                                                 <button type="submit" class="btn btn-primary btn-block">Registrar</button>
@@ -85,5 +91,5 @@
                 </div>
             </form>
         </div>
-    </body>
+    </body> 
 </html>
