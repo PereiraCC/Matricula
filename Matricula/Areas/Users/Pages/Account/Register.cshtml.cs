@@ -8,13 +8,15 @@ using Matricula.Areas.Users.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace Matricula.Areas.Users.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private static InputModel _dataInput;
+        public static InputModel _dataInput;
         ActionsBD actions = new ActionsBD();
+        private static InputModelRegister _dataUser1, _dataUser2;
 
         public void OnGet()
         {
@@ -32,6 +34,28 @@ namespace Matricula.Areas.Users.Pages.Account
                     carrerasLista = obtenerCarreras(),
                 };
             }   
+
+            if(_dataUser1 != null)
+            {
+                Input = new InputModel
+                {
+                    Identificacion = _dataUser1.Identificacion,
+                    Nombre = _dataUser1.Nombre,
+                    PrimerApellido = _dataUser1.PrimerApellido,
+                    SegundoApellido = _dataUser1.SegundoApellido,
+                    FechaNacimiento = _dataUser1.FechaNacimiento,
+                    CorreoElectronico = _dataUser1.CorreoElectronico,
+                    Telefono = _dataUser1.Telefono,
+                    Direccion = _dataUser1.Direccion,
+                    Password = _dataUser1.Password,
+                    Rol = _dataUser1.Rol,
+                    Carrera = _dataUser1.Carrera,
+                    rolesLista = obtenerRol(_dataUser1.Rol),
+                    carrerasLista = obtenerCarrera(_dataUser1.Carrera)
+                };
+            }
+            //_dataUser2 = _dataUser1;
+            //_dataUser1 = null;
         }
 
         [BindProperty]
@@ -48,18 +72,41 @@ namespace Matricula.Areas.Users.Pages.Account
 
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string dataUser)
         {
-            if (registrando() == 0)
+            if(dataUser == null)
             {
-                //Seria un 0 lo enviaria al login
-                return Redirect("/Users/Users?area=Users");
-
+                if(_dataUser1 == null)
+                {
+                    if (registrando() == 0)
+                    {
+                        //Seria un 0 lo enviaria al login
+                        return Redirect("/Users/Users?area=Users");
+                    }
+                    else
+                    {
+                        return Redirect("/Users/Register");
+                    }
+                }
+                else
+                {
+                    if (modificando() == 0)
+                    {
+                        return Redirect("/Users/Users?area=Users");
+                    }
+                    else
+                    {
+                        return Redirect("/Users/Register");
+                    }
+                }
+               
             }
             else
             {
+                _dataUser1 = JsonConvert.DeserializeObject<InputModelRegister>(dataUser);
                 return Redirect("/Users/Register");
             }
+           
         }
 
         private int registrando()
@@ -98,6 +145,23 @@ namespace Matricula.Areas.Users.Pages.Account
             return dato;
         }
 
+        private int modificando()
+        {
+            _dataInput = Input;
+            int dato = 1;
+
+            int estado = Int32.Parse(actions.modificarPersona(_dataInput));
+            if (estado == 0)
+            {
+                dato = 0;
+            }
+            else
+            {
+                dato = 1;
+            }
+            return dato;
+        }
+
         public List<SelectListItem> obtenerRoles()
         {
             ArrayList data = actions.getRoles();
@@ -124,6 +188,30 @@ namespace Matricula.Areas.Users.Pages.Account
             }
 
             return carreras;
+        }
+
+        public List<SelectListItem> obtenerRol(string rol)
+        {
+            List<SelectListItem> rolesLista = new List<SelectListItem>();
+            rolesLista.Add(new SelectListItem
+            {
+                Value = rol,
+                Text = rol
+            });
+
+            return rolesLista;
+        }
+
+        public List<SelectListItem> obtenerCarrera(string carrera)
+        {
+            List<SelectListItem> carreraLista = new List<SelectListItem>();
+            carreraLista.Add(new SelectListItem
+            {
+                Value = carrera,
+                Text = carrera
+            });
+
+            return carreraLista;
         }
 
     }

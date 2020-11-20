@@ -32,10 +32,21 @@
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                          data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <div class="form-group">
-                                                <input asp-for="Input.Identificacion" placeholder="Identificacion" class="form-control" autofocus />
-                                                <span asp-validation-for="Input.Identificacion" class="text-danger"></span>
-                                            </div>
+                                            @if (Model.Input.Identificacion == null)
+                                            {
+                                                <div class="form-group">
+                                                    <input asp-for="Input.Identificacion" placeholder="Identificacion" class="form-control" autofocus />
+                                                    <span asp-validation-for="Input.Identificacion" class="text-danger"></span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    <input asp-for="Input.Identificacion" placeholder="Identificacion" class="form-control" readonly />
+                                                    <span asp-validation-for="Input.Identificacion" class="text-danger"></span>
+                                                </div>
+                                            }
+
                                             <div class="form-group">
                                                 <input asp-for="Input.Nombre" placeholder="Nombre" class="form-control" />
                                                 <span asp-validation-for="Input.Nombre" class="text-danger"></span>
@@ -48,14 +59,35 @@
                                                 <input asp-for="Input.SegundoApellido" placeholder="Segundo Apellido" class="form-control" />
                                                 <span asp-validation-for="Input.SegundoApellido" class="text-danger"></span>
                                             </div>
-                                            <div class="form-group">
-                                                <input asp-for="Input.FechaNacimiento" placeholder="" class="form-control" type="date" />
-                                                <span asp-validation-for="Input.FechaNacimiento" class="text-danger"></span>
-                                            </div>
-                                            <div class="form-group">
-                                                <input asp-for="Input.CorreoElectronico" placeholder="Correo Electronico" class="form-control" type="email" />
-                                                <span asp-validation-for="Input.CorreoElectronico" class="text-danger"></span>
-                                            </div>
+                                            @if (Model.Input.FechaNacimiento == null)
+                                            {
+                                                <div class="form-group">
+                                                    <input id="Date" asp-for="Input.FechaNacimiento" placeholder="" class="form-control" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                                    <span asp-validation-for="Input.FechaNacimiento" class="text-danger"></span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    <input asp-for="Input.FechaNacimiento" placeholder="" class="form-control" type="date" value="@DateTime.Parse(Model.Input.FechaNacimiento).ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                                    <span asp-validation-for="Input.FechaNacimiento" class="text-danger"></span>
+                                                </div>
+                                            }
+
+                                            @if (Model.Input.CorreoElectronico == null)
+                                            {
+                                                <div class="form-group">
+                                                    <input asp-for="Input.CorreoElectronico" placeholder="Correo Electronico" class="form-control" type="email" />
+                                                    <span asp-validation-for="Input.CorreoElectronico" class="text-danger"></span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    <input asp-for="Input.CorreoElectronico" placeholder="Correo Electronico" class="form-control" type="email" readonly />
+                                                    <span asp-validation-for="Input.CorreoElectronico" class="text-danger"></span>
+                                                </div>
+                                            }
                                             <div class="form-group">
                                                 <input asp-for="Input.Telefono" placeholder="Telefono" class="form-control" type="tel" />
                                                 <span asp-validation-for="Input.Nombre" class="text-danger"></span>
@@ -64,18 +96,42 @@
                                                 <input asp-for="Input.Direccion" placeholder="Direccion" class="form-control" />
                                                 <span asp-validation-for="Input.Direccion" class="text-danger"></span>
                                             </div>
-                                            <div class="form-group">
-                                                <input asp-for="Input.Password" placeholder="Contraseña" class="form-control" type="password" />
-                                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                            </div>
-                                            <div class="form-group" id="rol">
-                                                @Html.DropDownList("Input.Rol", new SelectList(Model.Input.rolesLista, "Text", "Text"), "Seleccione un Rol", new { @onchange = "actualizacionCombo(this.value)", @class = "form-control" })
-                                                <span asp-validation-for="Input.Rol" class="text-danger"></span>
-                                            </div>
-                                            <div class="form-group" id="carrera">
-                                                @Html.DropDownList("Input.Carrera", new SelectList(Model.Input.carrerasLista, "Text", "Text"), "Seleccione un Carrera", new { @class = "form-control" })
-                                                <span asp-validation-for="Input.Carrera" class="text-danger"></span><br />
-                                            </div>
+                                            @if (Model.Input.Password == null)
+                                            {
+                                                <div class="form-group">
+                                                    <input asp-for="Input.Password" placeholder="Contraseña" class="form-control" type="password" />
+                                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                                </div>
+                                            }
+                                            @if (Model.Input.Rol == null)
+                                            {
+                                                <div class="form-group" id="rol">
+                                                    @Html.DropDownList("Input.Rol", new SelectList(Model.Input.rolesLista, "Text", "Text"), "Seleccione un Rol", new { @onchange = "actualizacionCombo(this.value)", @class = "form-control" })
+                                                    <span asp-validation-for="Input.Rol" class="text-danger"></span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    <input asp-for="Input.Rol" placeholder="Rol" class="form-control" readonly />
+                                                    <span asp-validation-for="Input.Rol" class="text-danger"></span>
+                                                </div>
+                                            }
+                                            @if (Model.Input.Carrera == null)
+                                            {
+                                                <div class="form-group" id="carrera">
+                                                    @Html.DropDownList("Input.Carrera", new SelectList(Model.Input.carrerasLista, "Text", "Text"), "Seleccione un Carrera", new { @class = "form-control" })
+                                                    <span asp-validation-for="Input.Carrera" class="text-danger"></span><br />
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-group">
+                                                    <input asp-for="Input.Carrera" placeholder="Carrera" class="form-control" readonly />
+                                                    <span asp-validation-for="Input.Carrera" class="text-danger"></span><br />
+                                                </div>
+                                            }
+
                                             <div class="form-group text-center">
                                                 <button type="submit" class="btn btn-primary btn-block">Registrar</button>
                                             </div>

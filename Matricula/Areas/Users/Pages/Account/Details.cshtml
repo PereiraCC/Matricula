@@ -4,7 +4,6 @@
     ViewData["Title"] = "Detalle Usuario";
     var name = Model.Input.DataUser.Nombre + " " + Model.Input.DataUser.PrimerApellido;
     var name2 = Model.Input.DataUser.Nombre + " " + Model.Input.DataUser.PrimerApellido + " " + Model.Input.DataUser.SegundoApellido;
-
 }
 
 <div class="container">
@@ -83,6 +82,19 @@
                                     <p>@Model.Input.DataUser.Telefono</p>
                                 </td>
                             </tr>
+                            @if (Model.Input.DataUser.Rol.Equals("Profesor") || Model.Input.DataUser.Rol.Equals("Estudiante"))
+                            {
+                                <tr>
+                                    <th>
+                                        Carrera
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>@Model.Input.DataUser.Carrera</p>
+                                    </td>
+                                </tr>
+                            }
                             <tr>
                                 <td>
                                     <form asp-area="Users" asp-page="Register" method="post">

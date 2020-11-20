@@ -14,11 +14,22 @@ namespace Matricula.Areas.Users.Controllers
     public class UsersController : Controller
     {
         ActionsBD actions = new ActionsBD();
-        public IActionResult Users()
+        public IActionResult Users(string filtrar)
         {
             DataPaginador<InputModelRegister> data = new DataPaginador<InputModelRegister>();
-            data.List = actions.getUsuarios();
-            return View(data);
+            if (filtrar == null)
+            {
+                data.List = actions.getUsuarios();
+                return View(data);
+            }
+            else
+            {
+                data.List = actions.getUn_Usuario2(filtrar);
+                return View(data);
+            }
+            
         }
+
+
     }
 }
