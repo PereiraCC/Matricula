@@ -60,6 +60,18 @@ button.accept-policy {
     height: 70px;
 }
 
+.imglogo {
+    max-width: 100%;
+}
+
+.navbar-brand {
+    max-width: 10%;
+}
+
+.border-bottom {
+    border-bottom: 3px solid #d6d5d5 !important;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -71,6 +83,17 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+
+    .navbar-brand {
+        max-width: 15%;
+    }
+}
+
 .footer {
   position: absolute;
   bottom: 0;

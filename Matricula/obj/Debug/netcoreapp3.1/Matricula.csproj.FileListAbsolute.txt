@@ -170,3 +170,5 @@ C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matr
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Matricula.pdb
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Matricula.genruntimeconfig.cache
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Matricula.csprojAssemblyReference.cache
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Principal\Views\Principal\Principal.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Principal\Views\_ViewStart.cshtml.g.cs

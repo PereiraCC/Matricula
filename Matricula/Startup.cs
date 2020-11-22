@@ -68,6 +68,11 @@ namespace Matricula
                     name: "Users",
                     areaName: "Users",
                     pattern: "{controller=Users}/{action=Users}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Principal",
+                    areaName: "Principal",
+                    pattern: "{controller=Principal}/{action=Principal}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

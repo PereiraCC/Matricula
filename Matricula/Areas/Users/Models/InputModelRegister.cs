@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -46,6 +47,9 @@ namespace Matricula.Areas.Users.Models
         public string Rol { get; set; }
 
         public string Carrera { get; set; }
+
+        [TempData]
+        public string ErrorMessage { get; set; }
 
 
     }

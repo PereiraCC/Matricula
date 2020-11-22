@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Matricula.Areas.Users.Data;
 using Matricula.Areas.Users.Models;
+using Matricula.Controllers;
+using Matricula.Library;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +15,7 @@ using Newtonsoft.Json;
 
 namespace Matricula.Areas.Users.Pages.Account
 {
+
     public class RegisterModel : PageModel
     {
         public static InputModel _dataInput;
@@ -63,8 +67,8 @@ namespace Matricula.Areas.Users.Pages.Account
 
         public class InputModel : InputModelRegister
         {
-            [TempData]
-            public string ErrorMessage { get; set; }
+            //[TempData]
+            //public string ErrorMessage { get; set; }
 
             public List<SelectListItem> rolesLista { get; set; }
 
@@ -80,8 +84,14 @@ namespace Matricula.Areas.Users.Pages.Account
                 {
                     if (registrando() == 0)
                     {
-                        //Seria un 0 lo enviaria al login
-                        return Redirect("/Users/Users?area=Users");
+                        if(LUser.usuario == null)
+                        {
+                            return RedirectToAction(nameof(HomeController.Index), "Home");
+                        }
+                        else
+                        {
+                            return Redirect("/Users/Users?area=Users");
+                        }
                     }
                     else
                     {
@@ -90,14 +100,22 @@ namespace Matricula.Areas.Users.Pages.Account
                 }
                 else
                 {
-                    if (modificando() == 0)
+                    if (LUser.usuario.Rol.Equals("Admin"))
                     {
-                        return Redirect("/Users/Users?area=Users");
+                        if (modificando() == 0)
+                        {
+                            return Redirect("/Users/Users?area=Users");
+                        }
+                        else
+                        {
+                            return Redirect("/Users/Register");
+                        }
                     }
                     else
                     {
-                        return Redirect("/Users/Register");
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
                     }
+                    
                 }
                
             }
