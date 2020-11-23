@@ -73,6 +73,11 @@ namespace Matricula
                     name: "Principal",
                     areaName: "Principal",
                     pattern: "{controller=Principal}/{action=Principal}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Mantenimiento",
+                    areaName: "Mantenimiento",
+                    pattern: "{controller=Mantenimiento}/{action=Mantenimiento}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
