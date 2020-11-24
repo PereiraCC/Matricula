@@ -1,0 +1,74 @@
+﻿@page "/Mantenimientos/RegisterCo_Requesitos"
+@model Co_RequesitosModel
+@{
+    ViewData["Title"] = "Registro Co-Requesitos";
+}
+
+<html>
+<head>
+    @*<link rel="stylesheet" href="~/css/Register.css" />
+    <script type="text/javascript" src="~/js/Registrar.js"></script>*@
+</head>
+<body>
+    <div class="container p-4">
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            <div class="col-xs-6 col-md-5">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@ViewData["Title"]</h3><br />
+                    </div>
+                    <div class="panel-body">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <div id="header" class="bg-info">
+                                        <h2 class="mb-0 t">
+                                            <button class="btn btn-link text-light" type="button" data-toggle="collapse"
+                                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Ingresar Informacion
+                                            </button>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                     data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        @if (Model.InputCo_Requesitos.Codigo_CoRequesito == null)
+                                        {
+                                            <div class="form-group">
+                                                <input asp-for="InputCo_Requesitos.Codigo_CoRequesito" placeholder="Codigo Co-Requesito" class="form-control" autofocus />
+                                                <span asp-validation-for="InputCo_Requesitos.Codigo_CoRequesito" class="text-danger"></span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group" id="carrera">
+                                                @Html.DropDownList("InputCo_Requesitos.Codigo_CoRequesito", new SelectList(Model.InputCo_Requesitos.listaCo_Requesitos, "Text", "Text"), "Seleccione un codigo", new { @class = "form-control" })
+                                                <span asp-validation-for="InputCo_Requesitos.listaCo_Requesitos" class="text-danger"></span><br />
+                                            </div>
+                                        }
+                                        @if (Model.InputCo_Requesitos.Nombre == null)
+                                        {
+                                            <div class="form-group">
+                                                <input asp-for="InputCo_Requesitos.Nombre" placeholder="Nombre Co-Requesito" class="form-control" autofocus />
+                                                <span asp-validation-for="InputCo_Requesitos.Nombre" class="text-danger"></span>
+                                            </div>
+                                        }
+
+                                        <div class="form-group text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-danger">@Html.DisplayFor(m => m.InputCo_Requesitos.ErrorMessage)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

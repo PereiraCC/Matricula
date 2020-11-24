@@ -43,21 +43,17 @@
                                         <td>
                                             <div class="text-center">
                                                 <strong>Mantenimiento</strong>
-                                                <p>@item.nombre</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a asp-area="Mantenimiento" asp-page="/Account/Details">
-                                                <input type="submit" value="Registrar" class="btn btn-success ">
+                                                <strong>@item.nombre</strong>
+                                            </div><br />
+                                            <a asp-area="Mantenimiento" asp-page="/Co_Requesitos/RegistrarCo_Requesitos">
+                                                <input type="submit" value="Registrar" class="btn btn-primary ">
                                             </a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <a asp-area="Mantenimiento" asp-page="/Account/Details">
-                                                <input type="submit" value="Modificar" class="btn btn-info ">
+                                                <input type="submit" value="Listado" class="btn btn-success ">
                                             </a>
                                         </td>
                                     </tr>
@@ -65,7 +61,7 @@
                             </table>
                         </div>
                     </div>
-                </div><br />
+                </div>
             }
 
         </div>
