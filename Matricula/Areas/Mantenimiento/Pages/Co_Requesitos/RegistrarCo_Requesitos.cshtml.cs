@@ -9,6 +9,7 @@ using Matricula.Library;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
 {
@@ -20,8 +21,23 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
 
         public void OnGet()
         {
-            InputCo_Requesitos = new InputModelCo_Requesitos();
+            if (_dataInput != null)
+            {
+                InputCo_Requesitos = _dataInput;
+            }
+            else
+            {
+                InputCo_Requesitos = new InputModelCo_Requesitos();
+            }
 
+            if (_dataUser1 != null)
+            {
+                InputCo_Requesitos = new InputModelCo_Requesitos
+                {
+                    Codigo_CoRequesito = _dataUser1.Codigo_CoRequesito,
+                    Nombre = _dataUser1.Nombre
+                };
+            }
         }
 
         [BindProperty]
@@ -33,21 +49,50 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
 
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(string dataCo_Requesito)
         {
-            if(registrandoCo_Requesito() == 0)
+            if (dataCo_Requesito == null)
             {
-                if (LUser.usuario == null)
+                if (_dataUser1 == null)
                 {
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                    if (registrandoCo_Requesito() == 0)
+                    {
+                        if (LUser.usuario == null)
+                        {
+                            return RedirectToAction(nameof(HomeController.Index), "Home");
+                        }
+                        else
+                        {
+                            return Redirect("/Mantenimiento/Mantenimiento?area=Mantenimiento");
+                        }
+                    }
+                    else
+                    {
+                        return Redirect("/Mantenimiento/RegisterCo_Requesitos");
+                    }
                 }
                 else
                 {
-                    return Redirect("/Mantenimiento/Mantenimiento?area=Mantenimiento");
+                    if (LUser.usuario.Rol.Equals("Admin"))
+                    {
+                        if (modificando() == 0)
+                        {
+                            return Redirect("/Mantenimiento/listadoCo_Requesitos?area=Mantenimiento");
+                        }
+                        else
+                        {
+                            return Redirect("/Mantenimiento/RegisterCo_Requesitos");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                    }
                 }
             }
             else
             {
+                _dataUser1 = JsonConvert.DeserializeObject<Co_RequesitosM>(dataCo_Requesito);
                 return Redirect("/Mantenimiento/RegisterCo_Requesitos");
             }
         }
@@ -76,6 +121,23 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
                 dato = 1;
             }
 
+            return dato;
+        }
+
+        private int modificando()
+        {
+            _dataInput = InputCo_Requesitos;
+            int dato = 1;
+
+            int estado = Int32.Parse(actions.modificarCo_Requesito(_dataInput));
+            if (estado == 0)
+            {
+                dato = 0;
+            }
+            else
+            {
+                dato = 1;
+            }
             return dato;
         }
     }

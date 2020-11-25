@@ -42,12 +42,19 @@
                                         }
                                         else
                                         {
-                                            <div class="form-group" id="carrera">
-                                                @Html.DropDownList("InputCo_Requesitos.Codigo_CoRequesito", new SelectList(Model.InputCo_Requesitos.listaCo_Requesitos, "Text", "Text"), "Seleccione un codigo", new { @class = "form-control" })
-                                                <span asp-validation-for="InputCo_Requesitos.listaCo_Requesitos" class="text-danger"></span><br />
+                                            <div class="form-group">
+                                                <input asp-for="InputCo_Requesitos.Codigo_CoRequesito" placeholder="Codigo Co-Requesito" class="form-control" autofocus readonly />
+                                                <span asp-validation-for="InputCo_Requesitos.Codigo_CoRequesito" class="text-danger"></span>
                                             </div>
                                         }
                                         @if (Model.InputCo_Requesitos.Nombre == null)
+                                        {
+                                            <div class="form-group">
+                                                <input asp-for="InputCo_Requesitos.Nombre" placeholder="Nombre Co-Requesito" class="form-control" autofocus />
+                                                <span asp-validation-for="InputCo_Requesitos.Nombre" class="text-danger"></span>
+                                            </div>
+                                        }
+                                        else
                                         {
                                             <div class="form-group">
                                                 <input asp-for="InputCo_Requesitos.Nombre" placeholder="Nombre Co-Requesito" class="form-control" autofocus />

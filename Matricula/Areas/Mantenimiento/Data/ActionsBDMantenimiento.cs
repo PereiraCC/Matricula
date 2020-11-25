@@ -111,5 +111,28 @@ namespace Matricula.Areas.Mantenimiento.Data
             return co_Requesito;
         }
 
+        public string modificarCo_Requesito(Co_RequesitosM input)
+        {
+            string estado = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ModificarCo_Requesito", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@codigo", input.Codigo_CoRequesito));
+            cmd.Parameters.Add(new SqlParameter("@nombre", input.Nombre));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                estado = reader[0].ToString();
+            }
+            reader.Close();
+
+            return estado;
+        }
+
     }
 }
