@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Matricula.Areas.Mantenimiento.Data;
 using Matricula.Areas.Mantenimiento.Models;
 using Matricula.Library;
 using Microsoft.AspNetCore.Mvc;
@@ -12,17 +13,21 @@ namespace Matricula.Areas.Mantenimiento.Controllers
     [Area("Mantenimiento")]
     public class MantenimientoController : Controller
     {
+        ActionsBDMantenimiento actions = new ActionsBDMantenimiento();
+
         public IActionResult Mantenimiento(string filtrar)
         {
             if (LUser.login == true)
             {
                 List<string> nombres = llenarNombres();
                 List<string> pathImages = llenarpathImages();
-                List<MantenimientoModel> data = llenarData(nombres, pathImages);
+                List<string> nombresCarpeta = llenarNombreCarpeta();
+                List<string> nombresRegistrar = llenarNombreArchivoRegistrar();
+                List<string> nombresActions = llenarNombreAction();
+                List<MantenimientoModel> data = llenarData(nombres, pathImages, nombresCarpeta, nombresRegistrar, nombresActions);
 
                 if (filtrar == null)
                 {
-                    
                     return View(data);
                 }
                 else
@@ -72,8 +77,49 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             return pathImages;
         }
 
+        public List<string> llenarNombreCarpeta()
+        {
+            List<string> nombresCarpetas = new List<string>();
+            nombresCarpetas.Add("Co_Requesitos");
+            nombresCarpetas.Add("Requesitos");
+            nombresCarpetas.Add("Horarios");
+            nombresCarpetas.Add("Materias");
+            nombresCarpetas.Add("Carreras");
+            nombresCarpetas.Add("Planes_Estudios");
+            nombresCarpetas.Add("Ofertas_Academicas");
 
-        public List<MantenimientoModel> llenarData(List<string> nombres, List<string> pathImages)
+            return nombresCarpetas;
+        }
+
+        public List<string> llenarNombreArchivoRegistrar()
+        {
+            List<string> nombresRegistrar = new List<string>();
+            nombresRegistrar.Add("RegistrarCo_Requesitos");
+            nombresRegistrar.Add("RegistrarRequesitos");
+            nombresRegistrar.Add("RegistrarHorarios");
+            nombresRegistrar.Add("RegistrarMaterias");
+            nombresRegistrar.Add("RegistrarCarreras");
+            nombresRegistrar.Add("RegistrarPlanes_Estudios");
+            nombresRegistrar.Add("RegistrarOfertas_Academicas");
+
+            return nombresRegistrar;
+        }
+
+        public List<string> llenarNombreAction()
+        {
+            List<string> nombresAction = new List<string>();
+            nombresAction.Add("listadoCo_Requesitos");
+            nombresAction.Add("listadoRequesitos");
+            nombresAction.Add("listadoHorarios");
+            nombresAction.Add("listadoMaterias");
+            nombresAction.Add("listadoCarreras");
+            nombresAction.Add("listadoPlanes_Estudios");
+            nombresAction.Add("listadoOfertas_Academicas");
+
+            return nombresAction;
+        }
+
+        public List<MantenimientoModel> llenarData(List<string> nombres, List<string> pathImages, List<string> nombresCarpetas, List<string> nombresRegistrar, List<string> nombresActions)
         {
             List<MantenimientoModel> data = new List<MantenimientoModel>();
             for (int i = 0; i < 7; i++)
@@ -81,6 +127,9 @@ namespace Matricula.Areas.Mantenimiento.Controllers
                 MantenimientoModel temp = new MantenimientoModel();
                 temp.nombre = nombres[i].ToString();
                 temp.pathImg = pathImages[i].ToString();
+                temp.nombreCarpeta = nombresCarpetas[i].ToString();
+                temp.nombreRegistrar = nombresRegistrar[i].ToString();
+                temp.nombreAction = nombresActions[i].ToString();
 
                 data.Add(temp);
             }
@@ -97,6 +146,41 @@ namespace Matricula.Areas.Mantenimiento.Controllers
                 {
                     resul.nombre = temp.nombre;
                     resul.pathImg = temp.pathImg;
+                }
+            }
+
+            return resul;
+        }
+
+        public IActionResult listadoCo_Requesitos(string filtrar)
+        {
+            List<Co_RequesitosM> data = actions.getCo_Requesitos();
+            if (filtrar == null)
+            {
+                return View(data);
+            }
+            else
+            {
+                List<Co_RequesitosM> datafiltrada = new List<Co_RequesitosM>();
+                Co_RequesitosM resul = buscarData2(data, filtrar);
+                if (resul.Nombre != null)
+                {
+                    datafiltrada.Add(resul);
+                }
+
+                return View(datafiltrada);
+            }
+        }
+
+        public Co_RequesitosM buscarData2(List<Co_RequesitosM> data, string filtro)
+        {
+            Co_RequesitosM resul = new Co_RequesitosM();
+            foreach (Co_RequesitosM temp in data)
+            {
+                if (temp.Nombre.Equals(filtro))
+                {
+                    resul.Codigo_CoRequesito = temp.Codigo_CoRequesito;
+                    resul.Nombre = temp.Nombre;
                 }
             }
 

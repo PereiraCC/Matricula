@@ -1,0 +1,77 @@
+﻿@page
+@model DetalleCo_RequesitosModel
+@{
+    ViewData["Title"] = "Detalle Co-Requesito";
+    var name = Model.Input.DataUser.Nombre;
+}
+
+<div class="container">
+    <h1>Detalle del Co-Requesito</h1><br />
+    <div class="row">
+        <div class="col-sm ">
+            <div class="card text-center" style="width: 21rem;">
+                <div class="card-header ">
+                    <img class='imageUserDetails' src="~/lib/Image/iconsRequesitos.png" />
+                </div>
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>Nombre: @name</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Informacion
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Codigo del Co-Requesito
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Codigo_CoRequesito</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre del Co-Requesito
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form asp-area="Mantenimiento" asp-page="RegistrarCo_Requesitos" method="post">
+                                        @{
+                                            var dataUser = JsonConvert.SerializeObject(Model.Input.DataUser);
+                                        }
+
+                                        <input type="hidden" name="DataUser" value="@dataUser" />
+                                        <input type="submit" value="Editar" class="btn btn-success ">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

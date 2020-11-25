@@ -33,6 +33,9 @@
                         <div class="card-header ">
                             @{
                                 string pathImg = item.pathImg;
+                                string nombreCarpeta = item.nombreCarpeta;
+                                string nombreRegistar = item.nombreRegistrar;
+                                string nombreAction = item.nombreAction;
                             }
                             <img class='imageUsers' src="~/lib/Image/@pathImg" />
                         </div>
@@ -45,14 +48,14 @@
                                                 <strong>Mantenimiento</strong>
                                                 <strong>@item.nombre</strong>
                                             </div><br />
-                                            <a asp-area="Mantenimiento" asp-page="/Co_Requesitos/RegistrarCo_Requesitos">
+                                            <a asp-area="Mantenimiento" asp-page="/@nombreCarpeta/@nombreRegistar">
                                                 <input type="submit" value="Registrar" class="btn btn-primary ">
                                             </a>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a asp-area="Mantenimiento" asp-page="/Account/Details">
+                                            <a asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="@nombreAction">
                                                 <input type="submit" value="Listado" class="btn btn-success ">
                                             </a>
                                         </td>

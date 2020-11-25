@@ -178,3 +178,5 @@ C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matr
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Pages\Co_Requesitos\RegistrarCo_Requesitos.cshtml.g.cs
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Pages\_ViewImports.cshtml.g.cs
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Pages\_ViewStart.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Views\Mantenimiento\listadoCo_Requesitos.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Pages\Co_Requesitos\DetalleCo_Requesitos.cshtml.g.cs

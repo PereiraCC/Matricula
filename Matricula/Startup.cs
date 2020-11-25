@@ -78,6 +78,41 @@ namespace Matricula
                     name: "Mantenimiento",
                     areaName: "Mantenimiento",
                     pattern: "{controller=Mantenimiento}/{action=Mantenimiento}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Mantenimiento",
+                    areaName: "Mantenimiento",
+                    pattern: "{controller=Mantenimiento}/{action=listadoCo_Requesitos}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Mantenimiento",
+                    areaName: "Mantenimiento",
+                    pattern: "{controller=Mantenimiento}/{action=listadoRequesitos}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Mantenimiento",
+                    areaName: "Mantenimiento",
+                    pattern: "{controller=Mantenimiento}/{action=listadoHorarios}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Mantenimiento",
+                    areaName: "Mantenimiento",
+                    pattern: "{controller=Mantenimiento}/{action=listadoMaterias}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Mantenimiento",
+                    areaName: "Mantenimiento",
+                    pattern: "{controller=Mantenimiento}/{action=listadoCarreras}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Mantenimiento",
+                    areaName: "Mantenimiento",
+                    pattern: "{controller=Mantenimiento}/{action=listadoPlanes_Estudios}/{id?}");
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Mantenimiento",
+                    areaName: "Mantenimiento",
+                    pattern: "{controller=Mantenimiento}/{action=listadoOfertas_Academicas}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

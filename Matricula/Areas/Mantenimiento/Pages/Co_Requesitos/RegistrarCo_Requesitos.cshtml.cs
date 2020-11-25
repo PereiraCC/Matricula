@@ -2,7 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Matricula.Areas.Mantenimiento.Data;
 using Matricula.Areas.Mantenimiento.Models;
+using Matricula.Controllers;
+using Matricula.Library;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +15,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
     public class Co_RequesitosModel : PageModel
     {
         public static InputModelCo_Requesitos _dataInput;
-        //ActionsBD actions = new ActionsBD();
+        ActionsBDMantenimiento actions = new ActionsBDMantenimiento();
         private static Co_RequesitosM _dataUser1;
 
         public void OnGet()
@@ -30,15 +33,50 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
 
         }
 
-        //public IActionResult OnPost()
-        //{
-        //    //Llamar al metodo "registrandoCo_Requesito"
-        //}
+        public IActionResult OnPost()
+        {
+            if(registrandoCo_Requesito() == 0)
+            {
+                if (LUser.usuario == null)
+                {
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+                else
+                {
+                    return Redirect("/Mantenimiento/Mantenimiento?area=Mantenimiento");
+                }
+            }
+            else
+            {
+                return Redirect("/Mantenimiento/RegisterCo_Requesitos");
+            }
+        }
 
-        //private int registrandoCo_Requesito()
-        //{
-        //    //Llamar el metodo de comprobar el codigo de Co_Requesito y llamar el metodo de registrar de clase ActionsBDMantenimiento
-        //    //Hacer la clase ActionsBDMantenimiento
-        //}
+        private int registrandoCo_Requesito()
+        {
+            _dataInput = InputCo_Requesitos;
+            int dato = 1;
+
+            int cantidad = Int32.Parse(actions.verificarCodigoCo_Requesito(_dataInput.Codigo_CoRequesito));
+            if (cantidad == 0)
+            {
+                int estado = Int32.Parse(actions.registrarCo_Requesito(_dataInput));
+                if (estado == 0)
+                {
+                    dato = 0;
+                }
+                else
+                {
+                    dato = 1;
+                }
+            }
+            else
+            {
+                _dataInput.ErrorMessage = $"El {InputCo_Requesitos.Codigo_CoRequesito} ya esta registrado";
+                dato = 1;
+            }
+
+            return dato;
+        }
     }
 }

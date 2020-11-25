@@ -22,7 +22,10 @@ namespace Matricula.Areas.Users.Data
         public ArrayList getRoles()
         {
             ArrayList roles = new ArrayList();
-            connection.Open();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
             SqlCommand cmd = new SqlCommand("ConsultarRoles", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader reader = cmd.ExecuteReader();
@@ -39,7 +42,10 @@ namespace Matricula.Areas.Users.Data
         public ArrayList getCarreras()
         {
             ArrayList carreras = new ArrayList();
-            //connection.Open();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
             SqlCommand cmd = new SqlCommand("ConsultarCarreras", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader reader = cmd.ExecuteReader();
@@ -56,7 +62,10 @@ namespace Matricula.Areas.Users.Data
         public string verificarCorreo(string correo)
         {
             string cantidad = "";
-            connection.Open();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
             SqlCommand cmd = new SqlCommand("verificarCorreo", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@correo", correo));
@@ -74,6 +83,10 @@ namespace Matricula.Areas.Users.Data
         public string registrarPersona(InputModelRegister input)
         {
             string estado = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
             SqlCommand cmd = new SqlCommand("RegistrarPersona", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@cedula", input.Identificacion));
@@ -112,7 +125,10 @@ namespace Matricula.Areas.Users.Data
             ArrayList roles = new ArrayList();
             roles = getRoles();
             List<InputModelRegister> personas = new List<InputModelRegister>();
-            //connection.Open();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
             SqlCommand cmd = new SqlCommand("ConsultarPersonas", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader reader = cmd.ExecuteReader();
@@ -164,7 +180,10 @@ namespace Matricula.Areas.Users.Data
             ArrayList roles = new ArrayList();
             roles = getRoles();
             InputModelRegister persona = new InputModelRegister();
-            //connection.Open();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
             SqlCommand cmd = new SqlCommand("ConsultarUnUsuario", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@cedula", identificador));
@@ -214,7 +233,10 @@ namespace Matricula.Areas.Users.Data
             ArrayList roles = new ArrayList();
             roles = getRoles();
             List<InputModelRegister> personas = new List<InputModelRegister>();
-            //connection.Open();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
             SqlCommand cmd = new SqlCommand("ConsultarUnUsuario2", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@nombre", nombre));
@@ -266,7 +288,10 @@ namespace Matricula.Areas.Users.Data
         public string modificarPersona(InputModelRegister input)
         {
             string estado = "";
-            connection.Open();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
             SqlCommand cmd = new SqlCommand("ModificarPersona", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@identificacion", input.Identificacion));

@@ -10,5 +10,12 @@ namespace Matricula.Areas.Mantenimiento.Models
         public string nombre { get; set; }
 
         public string pathImg { get; set; }
+
+        public string nombreCarpeta { get; set; }
+
+        public string nombreRegistrar { get; set; }
+
+        public string nombreAction { get; set; }
+
     }
 }
