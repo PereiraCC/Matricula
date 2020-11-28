@@ -8,54 +8,51 @@ using Matricula.Controllers;
 using Matricula.Library;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
-namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
+namespace Matricula.Areas.Mantenimiento.Pages.Requesitos
 {
-    public class Co_RequesitosModel : PageModel
+    public class Registrar_RequesitosModel : PageModel
     {
-        public static InputModelCo_Requesitos _dataInput;
-        ActionsBDCo_Requesitos actions = new ActionsBDCo_Requesitos();
-        private static Co_RequesitosM _dataUser1;
+        public static InputModelRequesitos _dataInput;
+        ActionsBDRequesitos actions = new ActionsBDRequesitos();
+        private static RequesitosM _dataUser1;
 
         public void OnGet()
         {
             if (_dataInput != null)
             {
-                InputCo_Requesitos = _dataInput;
+                Input_Requesitos = _dataInput;
             }
             else
             {
-                InputCo_Requesitos = new InputModelCo_Requesitos();
+                Input_Requesitos = new InputModelRequesitos();
             }
 
             if (_dataUser1 != null)
             {
-                InputCo_Requesitos = new InputModelCo_Requesitos
+                Input_Requesitos = new InputModelRequesitos
                 {
-                    Codigo_CoRequesito = _dataUser1.Codigo_CoRequesito,
-                    Nombre = _dataUser1.Nombre
+                    Codigo_Requesito = _dataUser1.Codigo_Requesito,
+                    Nombre_Requesito = _dataUser1.Nombre_Requesito
                 };
             }
         }
 
         [BindProperty]
-        public InputModelCo_Requesitos InputCo_Requesitos { get; set; }
+        public InputModelRequesitos Input_Requesitos { get; set; }
 
-        public class InputModelCo_Requesitos : Co_RequesitosM
+        public class InputModelRequesitos : RequesitosM
         {
-            public List<SelectListItem> listaCo_Requesitos { get; set; }
-
         }
 
-        public IActionResult OnPost(string dataCo_Requesito)
+        public IActionResult OnPost(string dataRequesito)
         {
-            if (dataCo_Requesito == null)
+            if(dataRequesito == null)
             {
-                if (_dataUser1 == null)
+                if(_dataUser1 == null)
                 {
-                    if (registrandoCo_Requesito() == 0)
+                    if (registrandoRequesito() == 0)
                     {
                         if (LUser.usuario == null)
                         {
@@ -63,25 +60,25 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
                         }
                         else
                         {
-                            return Redirect("/Mantenimiento/Mantenimiento?area=Mantenimiento");
+                            return Redirect("/Mantenimiento/listadoRequesitos?area=Mantenimiento");
                         }
                     }
                     else
                     {
-                        return Redirect("/Mantenimiento/RegisterCo_Requesitos");
+                        return Redirect("/Mantenimiento/Register_Requesitos");
                     }
                 }
                 else
                 {
                     if (LUser.usuario.Rol.Equals("Admin"))
                     {
-                        if (modificando() == 0)
+                        if (modificandoRequesito() == 0)
                         {
-                            return Redirect("/Mantenimiento/listadoCo_Requesitos?area=Mantenimiento");
+                            return Redirect("/Mantenimiento/listadoRequesitos?area=Mantenimiento");
                         }
                         else
                         {
-                            return Redirect("/Mantenimiento/RegisterCo_Requesitos");
+                            return Redirect("/Mantenimiento/Register_Requesitos");
                         }
                     }
                     else
@@ -92,20 +89,21 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
             }
             else
             {
-                _dataUser1 = JsonConvert.DeserializeObject<Co_RequesitosM>(dataCo_Requesito);
-                return Redirect("/Mantenimiento/RegisterCo_Requesitos");
+                _dataUser1 = JsonConvert.DeserializeObject<RequesitosM>(dataRequesito);
+                return Redirect("/Mantenimiento/Register_Requesitos");
             }
+            
         }
 
-        private int registrandoCo_Requesito()
+        public int registrandoRequesito()
         {
-            _dataInput = InputCo_Requesitos;
+            _dataInput = Input_Requesitos;
             int dato = 1;
 
-            int cantidad = Int32.Parse(actions.verificarCodigoCo_Requesito(_dataInput.Codigo_CoRequesito));
+            int cantidad = Int32.Parse(actions.verificarCodigoRequesito(_dataInput.Codigo_Requesito));
             if (cantidad == 0)
             {
-                int estado = Int32.Parse(actions.registrarCo_Requesito(_dataInput));
+                int estado = Int32.Parse(actions.registrarRequesito(_dataInput));
                 if (estado == 0)
                 {
                     dato = 0;
@@ -117,19 +115,19 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
             }
             else
             {
-                _dataInput.ErrorMessage = $"El {InputCo_Requesitos.Codigo_CoRequesito} ya esta registrado";
+                _dataInput.ErrorMessage = $"El {Input_Requesitos.Codigo_Requesito} ya esta registrado";
                 dato = 1;
             }
 
             return dato;
         }
 
-        private int modificando()
+        private int modificandoRequesito()
         {
-            _dataInput = InputCo_Requesitos;
+            _dataInput = Input_Requesitos;
             int dato = 1;
 
-            int estado = Int32.Parse(actions.modificarCo_Requesito(_dataInput));
+            int estado = Int32.Parse(actions.modificarRequesito(_dataInput));
             if (estado == 0)
             {
                 dato = 0;

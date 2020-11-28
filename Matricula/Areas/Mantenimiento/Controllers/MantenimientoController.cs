@@ -13,7 +13,8 @@ namespace Matricula.Areas.Mantenimiento.Controllers
     [Area("Mantenimiento")]
     public class MantenimientoController : Controller
     {
-        ActionsBDMantenimiento actions = new ActionsBDMantenimiento();
+        ActionsBDCo_Requesitos actionsCo_Requesito = new ActionsBDCo_Requesitos();
+        ActionsBDRequesitos actionsRequesito = new ActionsBDRequesitos();
 
         public IActionResult Mantenimiento(string filtrar)
         {
@@ -154,7 +155,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
 
         public IActionResult listadoCo_Requesitos(string filtrar)
         {
-            List<Co_RequesitosM> data = actions.getCo_Requesitos();
+            List<Co_RequesitosM> data = actionsCo_Requesito.getCo_Requesitos();
             if (filtrar == null)
             {
                 return View(data);
@@ -162,7 +163,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             else
             {
                 List<Co_RequesitosM> datafiltrada = new List<Co_RequesitosM>();
-                Co_RequesitosM resul = buscarData2(data, filtrar);
+                Co_RequesitosM resul = buscarCo_Requesito(data, filtrar);
                 if (resul.Nombre != null)
                 {
                     datafiltrada.Add(resul);
@@ -172,7 +173,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             }
         }
 
-        public Co_RequesitosM buscarData2(List<Co_RequesitosM> data, string filtro)
+        public Co_RequesitosM buscarCo_Requesito(List<Co_RequesitosM> data, string filtro)
         {
             Co_RequesitosM resul = new Co_RequesitosM();
             foreach (Co_RequesitosM temp in data)
@@ -181,6 +182,41 @@ namespace Matricula.Areas.Mantenimiento.Controllers
                 {
                     resul.Codigo_CoRequesito = temp.Codigo_CoRequesito;
                     resul.Nombre = temp.Nombre;
+                }
+            }
+
+            return resul;
+        }
+
+        public IActionResult listadoRequesitos(string filtrar)
+        {
+            List<RequesitosM> data = actionsRequesito.getRequesitos();
+            if (filtrar == null)
+            {
+                return View(data);
+            }
+            else
+            {
+                List<RequesitosM> datafiltrada = new List<RequesitosM>();
+                RequesitosM resul = buscarRequesito(data, filtrar);
+                if (resul.Nombre_Requesito != null)
+                {
+                    datafiltrada.Add(resul);
+                }
+
+                return View(datafiltrada);
+            }
+        }
+
+        public RequesitosM buscarRequesito(List<RequesitosM> data, string filtro)
+        {
+            RequesitosM resul = new RequesitosM();
+            foreach (RequesitosM temp in data)
+            {
+                if (temp.Nombre_Requesito.Equals(filtro))
+                {
+                    resul.Codigo_Requesito = temp.Codigo_Requesito;
+                    resul.Nombre_Requesito = temp.Nombre_Requesito;
                 }
             }
 

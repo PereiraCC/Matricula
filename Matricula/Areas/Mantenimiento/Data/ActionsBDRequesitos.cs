@@ -9,24 +9,24 @@ using System.Threading.Tasks;
 
 namespace Matricula.Areas.Mantenimiento.Data
 {
-    public class ActionsBDMantenimiento
+    public class ActionsBDRequesitos
     {
         Conection con = new Conection();
         SqlConnection connection;
 
-        public ActionsBDMantenimiento()
+        public ActionsBDRequesitos()
         {
             connection = con.getConnection();
         }
 
-        public string verificarCodigoCo_Requesito(string codigo)
+        public string verificarCodigoRequesito(string codigo)
         {
             string cantidad = "";
             if (connection.State != ConnectionState.Open)
             {
                 connection.Open();
             }
-            SqlCommand cmd = new SqlCommand("VerificarCodigoCo_Requesito", connection);
+            SqlCommand cmd = new SqlCommand("VerificarCodigoRequesito", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@codigo", codigo));
             SqlDataReader reader = cmd.ExecuteReader();
@@ -40,17 +40,17 @@ namespace Matricula.Areas.Mantenimiento.Data
             return cantidad;
         }
 
-        public string registrarCo_Requesito(Co_RequesitosM data)
+        public string registrarRequesito(RequesitosM data)
         {
             string estado = "";
             if (connection.State != ConnectionState.Open)
             {
                 connection.Open();
             }
-            SqlCommand cmd = new SqlCommand("RegistarCoRequesitos", connection);
+            SqlCommand cmd = new SqlCommand("RegistrarRequesito", connection);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter("@id", data.Codigo_CoRequesito));
-            cmd.Parameters.Add(new SqlParameter("@nombre", data.Nombre));
+            cmd.Parameters.Add(new SqlParameter("@id", data.Codigo_Requesito));
+            cmd.Parameters.Add(new SqlParameter("@nombre", data.Nombre_Requesito));
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -63,65 +63,65 @@ namespace Matricula.Areas.Mantenimiento.Data
             return estado;
         }
 
-        public List<Co_RequesitosM> getCo_Requesitos()
+        public List<RequesitosM> getRequesitos()
         {
-            List<Co_RequesitosM> co_Requesitos = new List<Co_RequesitosM>();
+            List<RequesitosM> Requesitos = new List<RequesitosM>();
             if (connection.State != ConnectionState.Open)
             {
                 connection.Open();
             }
-            SqlCommand cmd = new SqlCommand("ConsultarCo_Requesitos", connection);
+            SqlCommand cmd = new SqlCommand("ConsultarRequesito", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                Co_RequesitosM temp = new Co_RequesitosM();
-                temp.Codigo_CoRequesito = reader["idCo_Requesito"].ToString();
-                temp.Nombre = reader["nombre"].ToString();
+                RequesitosM temp = new RequesitosM();
+                temp.Codigo_Requesito = reader["idRequesito"].ToString();
+                temp.Nombre_Requesito = reader["nombre"].ToString();
 
-                co_Requesitos.Add(temp);
+                Requesitos.Add(temp);
             }
             reader.Close();
 
-            return co_Requesitos;
+            return Requesitos;
         }
 
-        public Co_RequesitosM getUnCo_Requesito(string id)
+        public RequesitosM getUnRequesito(string id)
         {
             int identificador = Int32.Parse(id);
-            Co_RequesitosM co_Requesito = new Co_RequesitosM();
-            if(connection.State != ConnectionState.Open)
+            RequesitosM Requesito = new RequesitosM();
+            if (connection.State != ConnectionState.Open)
             {
                 connection.Open();
             }
-            SqlCommand cmd = new SqlCommand("ConsultarUnCo_Requesito", connection);
+            SqlCommand cmd = new SqlCommand("ConsultarUnRequesito", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@id", identificador));
             SqlDataReader reader = cmd.ExecuteReader();
 
             while (reader.Read())
             {
-                co_Requesito.Codigo_CoRequesito = reader["idCo_Requesito"].ToString();
-                co_Requesito.Nombre = reader["nombre"].ToString();
-               
+                Requesito.Codigo_Requesito = reader["idRequesito"].ToString();
+                Requesito.Nombre_Requesito = reader["nombre"].ToString();
+
             }
             reader.Close();
 
-            return co_Requesito;
+            return Requesito;
         }
 
-        public string modificarCo_Requesito(Co_RequesitosM input)
+        public string modificarRequesito(RequesitosM input)
         {
             string estado = "";
             if (connection.State != ConnectionState.Open)
             {
                 connection.Open();
             }
-            SqlCommand cmd = new SqlCommand("ModificarCo_Requesito", connection);
+            SqlCommand cmd = new SqlCommand("ModificarRequesito", connection);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter("@codigo", input.Codigo_CoRequesito));
-            cmd.Parameters.Add(new SqlParameter("@nombre", input.Nombre));
+            cmd.Parameters.Add(new SqlParameter("@codigo", input.Codigo_Requesito));
+            cmd.Parameters.Add(new SqlParameter("@nombre", input.Nombre_Requesito));
 
             SqlDataReader reader = cmd.ExecuteReader();
 

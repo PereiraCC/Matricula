@@ -11,7 +11,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
 {
     public class DetalleCo_RequesitosModel : PageModel
     {
-        ActionsBDMantenimiento actions = new ActionsBDMantenimiento();
+        ActionsBDCo_Requesitos actions = new ActionsBDCo_Requesitos();
         public void OnGet(string id)
         {
             Co_RequesitosM data = actions.getUnCo_Requesito(id);
