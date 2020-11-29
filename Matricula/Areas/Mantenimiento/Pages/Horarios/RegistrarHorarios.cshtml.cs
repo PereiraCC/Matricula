@@ -2,29 +2,59 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Matricula.Areas.Mantenimiento.Data;
 using Matricula.Areas.Mantenimiento.Models;
+using Matricula.Controllers;
+using Matricula.Library;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace Matricula.Areas.Mantenimiento.Pages.Horarios
 {
     public class RegistrarHorariosModel : PageModel
     {
+        public static InputModelHorarios _dataInput;
+        ActionsBDHorarios actions = new ActionsBDHorarios();
+        private static HorariosM _dataUser1;
+
         public void OnGet()
         {
-            Input_Horarios = new InputModelHorarios
+            if (_dataInput != null)
             {
-                dias = obtenerDias(),
-                Horas_Iniciales = obtenerHoras_Iniciales(),
-                Horas_Finales = obtenerHoras_Finales()
-            };
+                Input_Horarios = _dataInput;
+            }
+            else
+            {
+                Input_Horarios = new InputModelHorarios
+                {
+                    dias = obtenerDias(),
+                    Horas_Iniciales = obtenerHoras_Iniciales(),
+                    Horas_Finales = obtenerHoras_Finales()
+                };
+            }
+
+            if (_dataUser1 != null)
+            {
+                Input_Horarios = new InputModelHorarios
+                {
+                    Codigo_Horario = _dataUser1.Codigo_Horario,
+                    Dia = _dataUser1.Dia,
+                    Hora_Inicial = _dataUser1.Hora_Inicial,
+                    Hora_Final = _dataUser1.Hora_Final,
+                    dias = obtenerDias(),
+                    Horas_Iniciales = obtenerHoras_Iniciales(),
+                    Horas_Finales = obtenerHoras_Finales()
+                };
+            }
+            
         }
 
         [BindProperty]
         public InputModelHorarios Input_Horarios { get; set; }
 
-        public class InputModelHorarios : HorariosModel
+        public class InputModelHorarios : HorariosM
         {
             public List<SelectListItem> dias { get; set; }
 
@@ -32,6 +62,99 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
 
             public List<SelectListItem> Horas_Finales { get; set; }
 
+        }
+
+        public IActionResult OnPost(string dataHorario)
+        {
+            if (dataHorario == null)
+            {
+                if (_dataUser1 == null)
+                {
+                    if (registrandoHorario() == 0)
+                    {
+                        if (LUser.usuario == null)
+                        {
+                            return RedirectToAction(nameof(HomeController.Index), "Home");
+                        }
+                        else
+                        {
+                            return Redirect("/Mantenimiento/listadoHorarios?area=Mantenimiento");
+                        }
+                    }
+                    else
+                    {
+                        return Redirect("/Mantenimiento/Register_Horarios");
+                    }
+                }
+                else
+                {
+                    if (LUser.usuario.Rol.Equals("Admin"))
+                    {
+                        if (modificandoHorario() == 0)
+                        {
+                            return Redirect("/Mantenimiento/listadoHorarios?area=Mantenimiento");
+                        }
+                        else
+                        {
+                            return Redirect("/Mantenimiento/Register_Horarios");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                    }
+                }
+            }
+            else
+            {
+                _dataUser1 = JsonConvert.DeserializeObject<HorariosM>(dataHorario);
+                return Redirect("/Mantenimiento/Register_Horarios");
+            }
+
+        }
+
+        public int registrandoHorario()
+        {
+            _dataInput = Input_Horarios;
+            int dato = 1;
+
+            int cantidad = Int32.Parse(actions.verificarCodigoHorario(_dataInput.Codigo_Horario));
+            if (cantidad == 0)
+            {
+                int estado = Int32.Parse(actions.registrarHorario(_dataInput));
+                if (estado == 0)
+                {
+                    dato = 0;
+                }
+                else
+                {
+                    dato = 1;
+                }
+            }
+            else
+            {
+                _dataInput.ErrorMessage = $"El {Input_Horarios.Codigo_Horario} ya esta registrado";
+                dato = 1;
+            }
+
+            return dato;
+        }
+
+        public int modificandoHorario()
+        {
+            _dataInput = Input_Horarios;
+            int dato = 1;
+
+            int estado = Int32.Parse(actions.modificarHorario(_dataInput));
+            if (estado == 0)
+            {
+                dato = 0;
+            }
+            else
+            {
+                dato = 1;
+            }
+            return dato;
         }
 
         public List<SelectListItem> obtenerDias()

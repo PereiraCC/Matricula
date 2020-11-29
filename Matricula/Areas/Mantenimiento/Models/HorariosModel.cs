@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Matricula.Areas.Mantenimiento.Models
 {
-    public class HorariosModel
+    public class HorariosM
     {
         [Required(ErrorMessage = "El campo Codigo Horario es requerido")]
         public string Codigo_Horario { get; set; }

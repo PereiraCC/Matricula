@@ -1,24 +1,24 @@
 ﻿@page
-@model DetalleCo_RequesitosModel
+@model DetalleHorariosModel
 @{
-    ViewData["Title"] = "Detalle Co-Requesito";
-    var name = Model.Input.DataUser.Nombre;
+    ViewData["Title"] = "Detalle Horario";
+    var day = Model.Input.DataUser.Dia;
 }
 
 <div class="container">
-    <h3>Detalle del Co-Requesito</h3><br />
+    <h3>@ViewData["Title"]</h3><br />
     <div class="row">
         <div class="col-sm ">
             <div class="card text-center" style="width: 21rem;">
                 <div class="card-header ">
-                    <img class='imageUserDetails' src="~/lib/Image/iconsRequesitos.png" />
+                    <img class='imageUserDetails' src="~/lib/Image/iconsHorario.png" />
                 </div>
                 <div class="card-body">
                     <table class="tableCursos">
                         <tbody>
                             <tr>
                                 <td>
-                                    <p>Nombre: @name</p>
+                                    <p>Día: @day</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -38,32 +38,52 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Codigo del Co-Requesito
+                                    Codigo del Horario
                                 </th>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>@Model.Input.DataUser.Codigo_CoRequesito</p>
+                                    <p>@Model.Input.DataUser.Codigo_Horario</p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    Nombre del Co-Requesito
+                                    Día del Horario
                                 </th>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>@name</p>
+                                    <p>@day</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Hora Inicial del Horario
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Hora_Inicial</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Hora Final del Horario
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Hora_Final</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <form asp-area="Mantenimiento" asp-page="RegistrarCo_Requesitos" method="post">
+                                    <form asp-area="Mantenimiento" asp-page="RegistrarHorarios" method="post">
                                         @{
                                             var dataUser = JsonConvert.SerializeObject(Model.Input.DataUser);
                                         }
 
-                                        <input type="hidden" name="dataCo_Requesito" value="@dataUser" />
+                                        <input type="hidden" name="dataHorario" value="@dataUser" />
                                         <input type="submit" value="Editar" class="btn btn-success ">
                                     </form>
                                 </td>

@@ -15,6 +15,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
     {
         ActionsBDCo_Requesitos actionsCo_Requesito = new ActionsBDCo_Requesitos();
         ActionsBDRequesitos actionsRequesito = new ActionsBDRequesitos();
+        ActionsBDHorarios actionsHorarios = new ActionsBDHorarios();
 
         public IActionResult Mantenimiento(string filtrar)
         {
@@ -217,6 +218,43 @@ namespace Matricula.Areas.Mantenimiento.Controllers
                 {
                     resul.Codigo_Requesito = temp.Codigo_Requesito;
                     resul.Nombre_Requesito = temp.Nombre_Requesito;
+                }
+            }
+
+            return resul;
+        }
+
+        public IActionResult listadoHorarios(string filtrar)
+        {
+            List<HorariosM> data = actionsHorarios.getHorarios();
+            if (filtrar == null)
+            {
+                return View(data);
+            }
+            else
+            {
+                List<HorariosM> datafiltrada = new List<HorariosM>();
+                HorariosM resul = buscarHorario(data, filtrar);
+                if (resul.Dia != null)
+                {
+                    datafiltrada.Add(resul);
+                }
+
+                return View(datafiltrada);
+            }
+        }
+
+        public HorariosM buscarHorario(List<HorariosM> data, string filtro)
+        {
+            HorariosM resul = new HorariosM();
+            foreach (HorariosM temp in data)
+            {
+                if (temp.Dia.Equals(filtro))
+                {
+                    resul.Codigo_Horario = temp.Codigo_Horario;
+                    resul.Dia = temp.Dia;
+                    resul.Hora_Inicial = temp.Hora_Inicial;
+                    resul.Hora_Final = temp.Hora_Final;
                 }
             }
 

@@ -65,28 +65,28 @@
                                         @if (Model.Input_Horarios.Hora_Inicial == null)
                                         {
                                             <div class="form-group">
-                                                @Html.DropDownList("Input_Horarios.Horas_Iniciales", new SelectList(Model.Input_Horarios.Horas_Iniciales, "Text", "Text"), "Seleccione un Hora Inicial", new { @class = "form-control" })
+                                                @Html.DropDownList("Input_Horarios.Hora_Inicial", new SelectList(Model.Input_Horarios.Horas_Iniciales, "Text", "Text"), "Seleccione un Hora Inicial", new { @class = "form-control" })
                                                 <span asp-validation-for="Input_Horarios.Horas_Iniciales" class="text-danger"></span>
                                             </div>
                                         }
                                         else
                                         {
                                             <div class="form-group">
-                                                @Html.DropDownList("Input_Horarios.Horas_Iniciales", new SelectList(Model.Input_Horarios.Horas_Iniciales, "Text", "Text"), Model.Input_Horarios.Hora_Inicial, new { @class = "form-control" })
+                                                @Html.DropDownList("Input_Horarios.Hora_Inicial", new SelectList(Model.Input_Horarios.Horas_Iniciales, "Text", "Text"), Model.Input_Horarios.Hora_Inicial, new { @class = "form-control" })
                                                 <span asp-validation-for="Input_Horarios.Horas_Iniciales" class="text-danger"></span>
                                             </div>
                                         }
                                         @if (Model.Input_Horarios.Hora_Final == null)
                                         {
                                             <div class="form-group">
-                                                @Html.DropDownList("Input_Horarios.Horas_Finales", new SelectList(Model.Input_Horarios.Horas_Finales, "Text", "Text"), "Seleccione un Hora Final", new { @class = "form-control" })
+                                                @Html.DropDownList("Input_Horarios.Hora_Final", new SelectList(Model.Input_Horarios.Horas_Finales, "Text", "Text"), "Seleccione un Hora Final", new { @class = "form-control" })
                                                 <span asp-validation-for="Input_Horarios.Horas_Finales" class="text-danger"></span>
                                             </div>
                                         }
                                         else
                                         {
                                             <div class="form-group">
-                                                @Html.DropDownList("Input_Horarios.Horas_Finales", new SelectList(Model.Input_Horarios.Horas_Finales, "Text", "Text"), Model.Input_Horarios.Hora_Final, new { @class = "form-control" })
+                                                @Html.DropDownList("Input_Horarios.Hora_Final", new SelectList(Model.Input_Horarios.Horas_Finales, "Text", "Text"), Model.Input_Horarios.Hora_Final, new { @class = "form-control" })
                                                 <span asp-validation-for="Input_Horarios.Horas_Finales" class="text-danger"></span>
                                             </div>
                                         }
