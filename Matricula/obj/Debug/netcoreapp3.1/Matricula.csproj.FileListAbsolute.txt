@@ -183,3 +183,4 @@ C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matr
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Pages\Requesitos\RegistrarRequesitos.cshtml.g.cs
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Views\Mantenimiento\listadoRequesitos.cshtml.g.cs
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Pages\Requesitos\DetalleRequesitos.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Mantenimiento\Pages\Horarios\RegistrarHorarios.cshtml.g.cs

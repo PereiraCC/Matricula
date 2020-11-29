@@ -35,20 +35,27 @@ using Matricula.Areas.Mantenimiento.Pages.Requesitos;
 #nullable disable
 #nullable restore
 #line 4 "C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\Areas\Mantenimiento\Pages\_ViewImports.cshtml"
-using Matricula.Areas.Mantenimiento.Models;
+using Matricula.Areas.Mantenimiento.Pages.Horarios;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\Areas\Mantenimiento\Pages\_ViewImports.cshtml"
+using Matricula.Areas.Mantenimiento.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\Areas\Mantenimiento\Pages\_ViewImports.cshtml"
 using Newtonsoft.Json;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"894a86422e54369e98003f5806638068ca410f12", @"/Areas/Mantenimiento/Pages/Co_Requesitos/DetalleCo_Requesitos.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"4736c8a70815ac9e3b45c75fd56e4a1f11c963c6", @"/Areas/Mantenimiento/Pages/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9ba044163a7402d18739173b2fc5b0b0ddc6c0c1", @"/Areas/Mantenimiento/Pages/_ViewImports.cshtml")]
     public class Areas_Mantenimiento_Pages_Co_Requesitos_DetalleCo_Requesitos : global::Microsoft.AspNetCore.Mvc.RazorPages.Page
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("imageUserDetails"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.SingleQuotes);
@@ -99,7 +106,7 @@ using Newtonsoft.Json;
             <div class=""card text-center"" style=""width: 21rem;"">
                 <div class=""card-header "">
                     ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "894a86422e54369e98003f5806638068ca410f126967", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "894a86422e54369e98003f5806638068ca410f127242", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -180,7 +187,7 @@ using Newtonsoft.Json;
 #line hidden
 #nullable disable
             WriteLiteral("</p>\r\n                                </td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>\r\n                                    ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "894a86422e54369e98003f5806638068ca410f1210872", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "894a86422e54369e98003f5806638068ca410f1211147", async() => {
                 WriteLiteral("\r\n");
 #nullable restore
 #line 62 "C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\Areas\Mantenimiento\Pages\Co_Requesitos\DetalleCo_Requesitos.cshtml"
