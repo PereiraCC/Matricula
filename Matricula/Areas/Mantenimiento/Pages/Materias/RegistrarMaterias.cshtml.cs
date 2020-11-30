@@ -31,7 +31,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                 {
                     lista_Creditos = obtenerListaCreditos(),
                     lista_Requesitos = obtenerListaRequesitos(),
-                    lista_CoRequesitos = obtenerListaCo_Requesitos()
+                    lista_CoRequesitos = obtenerListaCo_Requesitos(),
+                    listaHorarios = obtenerListaHorarios()
                 };
             }
 
@@ -45,9 +46,13 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                     Creditos = _dataUser1.Creditos,
                     Nombre_Requesito = _dataUser1.Nombre_Requesito,
                     NombreCo_Requesito = _dataUser1.NombreCo_Requesito,
+                    NombreHorario = _dataUser1.NombreHorario,
+                    Cupo = _dataUser1.Cupo,
+                    Costo = _dataUser1.Costo.Substring(1),
                     lista_Creditos = obtenerListaCreditos(),
                     lista_Requesitos = obtenerListaRequesitos(),
-                    lista_CoRequesitos = obtenerListaCo_Requesitos()
+                    lista_CoRequesitos = obtenerListaCo_Requesitos(),
+                    listaHorarios = obtenerListaHorarios()
                 };
             }
 
@@ -63,6 +68,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
             public List<SelectListItem> lista_Requesitos { get; set; }
 
             public List<SelectListItem> lista_CoRequesitos { get; set; }
+
+            public List<SelectListItem> listaHorarios { get; set; }
 
         }
 
@@ -117,6 +124,10 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
         public int registrandoMateria()
         {
             _dataInput = Input_Materias;
+            string[] data = _dataInput.NombreHorario.Split(" ");
+            _dataInput.NombreHorario = data[0];
+            _dataInput.Hora_Inicial = data[1];
+            _dataInput.Hora_Final = data[2];
             int dato = 1;
 
             int cantidad = Int32.Parse(actions.verificarCodigoMateria(_dataInput.Codigo_Materia));
@@ -144,6 +155,10 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
         public int modificandoMateria()
         {
             _dataInput = Input_Materias;
+            string[] data = _dataInput.NombreHorario.Split(" ");
+            _dataInput.NombreHorario = data[0];
+            _dataInput.Hora_Inicial = data[1];
+            _dataInput.Hora_Final = data[2];
             int dato = 1;
 
             int estado = Int32.Parse(actions.modificarMateria(_dataInput));
@@ -200,5 +215,19 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
 
             return Lco_requesitos;
         }
+
+        public List<SelectListItem> obtenerListaHorarios()
+        {
+            List<string> horario = actions.getHorarios();
+            List<SelectListItem> Lhorarios = new List<SelectListItem>();
+            foreach (string dato in horario)
+            {
+                SelectListItem temp = new SelectListItem(dato, dato);
+                Lhorarios.Add(temp);
+            }
+
+            return Lhorarios;
+        }
+
     }
 }

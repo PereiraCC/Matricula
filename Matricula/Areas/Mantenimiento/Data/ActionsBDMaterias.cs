@@ -15,6 +15,7 @@ namespace Matricula.Areas.Mantenimiento.Data
         SqlConnection connection;
         ActionsBDRequesitos ActionsBDRequesitos = new ActionsBDRequesitos();
         ActionsBDCo_Requesitos ActionsBDCo_Requesitos = new ActionsBDCo_Requesitos();
+        ActionsBDHorarios ActionsBDHorarios = new ActionsBDHorarios();
 
         public ActionsBDMaterias()
         {
@@ -61,6 +62,47 @@ namespace Matricula.Areas.Mantenimiento.Data
             return co_requesitos;
         }
 
+        public List<string> getHorarios()
+        {
+            List<string> horarios = new List<string>();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarHorarios", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                string temp = reader["Dia"].ToString() + " " + reader["Hora_Inicial"].ToString() + " " + reader["Hora_Final"].ToString();
+                horarios.Add(temp);
+            }
+            reader.Close();
+
+            return horarios;
+        }
+
+        public List<string> getDiaHorario()
+        {
+            List<string> diaHorarios = new List<string>();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarHorarios", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                diaHorarios.Add(reader["Dia"].ToString());
+            }
+            reader.Close();
+
+            return diaHorarios;
+        }
+
         public string verificarCodigoMateria(string codigo)
         {
             string cantidad = "";
@@ -97,6 +139,11 @@ namespace Matricula.Areas.Mantenimiento.Data
             cmd.Parameters.Add(new SqlParameter("@creditos", data.Creditos));
             cmd.Parameters.Add(new SqlParameter("@nombreRequesito", data.Nombre_Requesito));
             cmd.Parameters.Add(new SqlParameter("@nombreCo_Requesito", data.NombreCo_Requesito));
+            cmd.Parameters.Add(new SqlParameter("@nombreHorario", data.NombreHorario));
+            cmd.Parameters.Add(new SqlParameter("@horaI", data.Hora_Inicial));
+            cmd.Parameters.Add(new SqlParameter("@horaF", data.Hora_Final));
+            cmd.Parameters.Add(new SqlParameter("@cupo", data.Cupo));
+            cmd.Parameters.Add(new SqlParameter("@costo", data.Costo));
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -143,6 +190,7 @@ namespace Matricula.Areas.Mantenimiento.Data
         {
             List<RequesitosM> requesitos = ActionsBDRequesitos.getRequesitos();
             List<Co_RequesitosM> co_requesitos = ActionsBDCo_Requesitos.getCo_Requesitos();
+            List<HorariosM> horarios = ActionsBDHorarios.getHorarios();
             int identificador = Int32.Parse(id);
             MateriasM Materia = new MateriasM();
             if (connection.State != ConnectionState.Open)
@@ -162,13 +210,16 @@ namespace Matricula.Areas.Mantenimiento.Data
                 Materia.Creditos = reader["creditos"].ToString();
                 Materia.Nombre_Requesito = obtenerNombreRequesitos(requesitos, reader["idRequesito"].ToString());
                 Materia.NombreCo_Requesito = obtenerNombreCo_Requesitos(co_requesitos, reader["idCo_Requesito"].ToString());
+                Materia.NombreHorario = obtenerNombreHorario(horarios, reader["idHorario"].ToString());
+                Materia.Cupo = reader["cupo"].ToString();
+                Materia.Costo = "₡" + reader["costo"].ToString().Substring(0, reader["costo"].ToString().Length - 5);
             }
             reader.Close();
 
             return Materia;
         }
 
-        public string modificarMateria(MateriasM input)
+        public string modificarMateria(MateriasM data)
         {
             string estado = "";
             if (connection.State != ConnectionState.Open)
@@ -177,13 +228,17 @@ namespace Matricula.Areas.Mantenimiento.Data
             }
             SqlCommand cmd = new SqlCommand("ModificarMateria", connection);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add(new SqlParameter("@codigo", input.Codigo_Materia));
-            cmd.Parameters.Add(new SqlParameter("@nombre", input.Nombre));
-            cmd.Parameters.Add(new SqlParameter("@descrip", input.Descripcion));
-            cmd.Parameters.Add(new SqlParameter("@creditos", input.Creditos));
-            cmd.Parameters.Add(new SqlParameter("@nombreRequesito", input.Nombre_Requesito));
-            cmd.Parameters.Add(new SqlParameter("@nombreCo_Requesito", input.NombreCo_Requesito));
+            cmd.Parameters.Add(new SqlParameter("@codigo", data.Codigo_Materia));
+            cmd.Parameters.Add(new SqlParameter("@nombre", data.Nombre));
+            cmd.Parameters.Add(new SqlParameter("@descrip", data.Descripcion));
+            cmd.Parameters.Add(new SqlParameter("@creditos", data.Creditos));
+            cmd.Parameters.Add(new SqlParameter("@nombreRequesito", data.Nombre_Requesito));
+            cmd.Parameters.Add(new SqlParameter("@nombreCo_Requesito", data.NombreCo_Requesito));
+            cmd.Parameters.Add(new SqlParameter("@nombreHorario", data.NombreHorario));
+            cmd.Parameters.Add(new SqlParameter("@horaI", data.Hora_Inicial));
+            cmd.Parameters.Add(new SqlParameter("@horaF", data.Hora_Final));
+            cmd.Parameters.Add(new SqlParameter("@cupo", data.Cupo));
+            cmd.Parameters.Add(new SqlParameter("@costo", data.Costo));
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -218,6 +273,20 @@ namespace Matricula.Areas.Mantenimiento.Data
                 if (req.Codigo_CoRequesito.Equals(codigo))
                 {
                     nombre = req.Nombre;
+                }
+            }
+
+            return nombre;
+        }
+
+        public string obtenerNombreHorario(List<HorariosM> horarios, string codigo)
+        {
+            string nombre = "";
+            foreach (HorariosM hor in horarios)
+            {
+                if (hor.Codigo_Horario.Equals(codigo))
+                {
+                    nombre = hor.Dia + " " + hor.Hora_Inicial + " " + hor.Hora_Final;
                 }
             }
 

@@ -99,6 +99,30 @@
                                             </div>
                                         }
 
+                                        @if (Model.Input_Materias.NombreHorario == null)
+                                        {
+                                            <div class="form-group">
+                                                @Html.DropDownList("Input_Materias.NombreHorario", new SelectList(Model.Input_Materias.listaHorarios, "Text", "Text"), "Seleccione un Horario", new { @class = "form-control" })
+                                                <span asp-validation-for="Input_Materias.NombreHorario" class="text-danger"></span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                @Html.DropDownList("Input_Materias.NombreHorario", new SelectList(Model.Input_Materias.listaHorarios, "Text", "Text"), Model.Input_Materias.NombreHorario, new { @class = "form-control" })
+                                                <span asp-validation-for="Input_Materias.NombreHorario" class="text-danger"></span>
+                                            </div>
+                                        }
+
+                                        <div class="form-group">
+                                            <input asp-for="Input_Materias.Cupo" placeholder="Indica el Cupo" class="form-control" type="number" min="10" max="35" autofocus />
+                                            <span asp-validation-for="Input_Materias.Cupo" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <input asp-for="Input_Materias.Costo" placeholder="Costo" class="form-control" autofocus />
+                                            <span asp-validation-for="Input_Materias.Costo" class="text-danger"></span>
+                                        </div>
+
                                         <div class="form-group text-center">
                                             <button type="submit" class="btn btn-primary btn-block">Registrar</button>
                                         </div>

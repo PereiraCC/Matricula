@@ -27,6 +27,19 @@ namespace Matricula.Areas.Mantenimiento.Models
         [Required(ErrorMessage = "El campo Nombre Co-Requesito es requerido")]
         public string NombreCo_Requesito { get; set; }
 
+        [Required(ErrorMessage = "El campo Nombre Horario es requerido")]
+        public string NombreHorario { get; set; }
+
+        public string Hora_Inicial { get; set; }
+
+        public string Hora_Final { get; set; }
+
+        [Required(ErrorMessage = "El campo Nombre Cupo es requerido")]
+        public string Cupo { get; set; }
+
+        [Required(ErrorMessage = "El campo Nombre Costo es requerido")]
+        public string Costo { get; set; }
+
         [TempData]
         public string ErrorMessage { get; set; }
     }
