@@ -1,0 +1,117 @@
+﻿@page
+@model DetalleMateriasModel
+@{
+    ViewData["Title"] = "Detalle Materia";
+    var name = Model.Input.DataUser.Nombre;
+}
+
+<div class="container">
+    <h3>@ViewData["Title"]</h3><br />
+    <div class="row">
+        <div class="col-sm ">
+            <div class="card text-center" style="width: 21rem;">
+                <div class="card-header ">
+                    <img class='imageUserDetails' src="~/lib/Image/iconsMaterias.png" />
+                </div>
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>Nombre: @name</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Informacion
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Codigo de la Materia
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Codigo_Materia</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre de la Materia
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Descripcion de la Materia
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Descripcion</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Creditos de la Materia
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Creditos</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre del Requesitos
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Nombre_Requesito</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre del Co-Requesitos
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.NombreCo_Requesito</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form asp-area="Mantenimiento" asp-page="RegistrarMaterias" method="post">
+                                        @{
+                                            var dataUser = JsonConvert.SerializeObject(Model.Input.DataUser);
+                                        }
+
+                                        <input type="hidden" name="dataMateria" value="@dataUser" />
+                                        <input type="submit" value="Editar" class="btn btn-success ">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

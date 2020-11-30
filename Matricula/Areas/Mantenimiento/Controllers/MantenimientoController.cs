@@ -16,6 +16,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
         ActionsBDCo_Requesitos actionsCo_Requesito = new ActionsBDCo_Requesitos();
         ActionsBDRequesitos actionsRequesito = new ActionsBDRequesitos();
         ActionsBDHorarios actionsHorarios = new ActionsBDHorarios();
+        ActionsBDMaterias actionsMaterias = new ActionsBDMaterias();
 
         public IActionResult Mantenimiento(string filtrar)
         {
@@ -255,6 +256,45 @@ namespace Matricula.Areas.Mantenimiento.Controllers
                     resul.Dia = temp.Dia;
                     resul.Hora_Inicial = temp.Hora_Inicial;
                     resul.Hora_Final = temp.Hora_Final;
+                }
+            }
+
+            return resul;
+        }
+
+        public IActionResult listadoMaterias(string filtrar)
+        {
+            List<MateriasM> data = actionsMaterias.getMaterias();
+            if (filtrar == null)
+            {
+                return View(data);
+            }
+            else
+            {
+                List<MateriasM> datafiltrada = new List<MateriasM>();
+                MateriasM resul = buscarMateria(data, filtrar);
+                if (resul.Nombre != null)
+                {
+                    datafiltrada.Add(resul);
+                }
+
+                return View(datafiltrada);
+            }
+        }
+
+        public MateriasM buscarMateria(List<MateriasM> data, string filtro)
+        {
+            MateriasM resul = new MateriasM();
+            foreach (MateriasM temp in data)
+            {
+                if (temp.Nombre.Equals(filtro))
+                {
+                    resul.Codigo_Materia = temp.Codigo_Materia;
+                    resul.Nombre = temp.Nombre;
+                    resul.Descripcion = temp.Descripcion;
+                    resul.Creditos = temp.Creditos;
+                    resul.Nombre_Requesito = temp.Nombre_Requesito;
+                    resul.NombreCo_Requesito = temp.NombreCo_Requesito;
                 }
             }
 
