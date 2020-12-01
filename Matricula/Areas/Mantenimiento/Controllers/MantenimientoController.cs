@@ -17,6 +17,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
         ActionsBDRequesitos actionsRequesito = new ActionsBDRequesitos();
         ActionsBDHorarios actionsHorarios = new ActionsBDHorarios();
         ActionsBDMaterias actionsMaterias = new ActionsBDMaterias();
+        ActionsBDCarreras actionsCarreras = new ActionsBDCarreras();
 
         public IActionResult Mantenimiento(string filtrar)
         {
@@ -295,6 +296,42 @@ namespace Matricula.Areas.Mantenimiento.Controllers
                     resul.Creditos = temp.Creditos;
                     resul.Nombre_Requesito = temp.Nombre_Requesito;
                     resul.NombreCo_Requesito = temp.NombreCo_Requesito;
+                }
+            }
+
+            return resul;
+        }
+
+        public IActionResult listadoCarreras(string filtrar)
+        {
+            List<CarrerasM> data = actionsCarreras.getCarreras();
+            if (filtrar == null)
+            {
+                return View(data);
+            }
+            else
+            {
+                List<CarrerasM> datafiltrada = new List<CarrerasM>();
+                CarrerasM resul = buscarCarrera(data, filtrar);
+                if (resul.Nombre_Carrera != null)
+                {
+                    datafiltrada.Add(resul);
+                }
+
+                return View(datafiltrada);
+            }
+        }
+
+        public CarrerasM buscarCarrera(List<CarrerasM> data, string filtro)
+        {
+            CarrerasM resul = new CarrerasM();
+            foreach (CarrerasM temp in data)
+            {
+                if (temp.Nombre_Carrera.Equals(filtro))
+                {
+                    resul.Codigo_Carrera = temp.Codigo_Carrera;
+                    resul.Nombre_Carrera = temp.Nombre_Carrera;
+                    resul.Descripcion_Carrera = temp.Descripcion_Carrera;
                 }
             }
 

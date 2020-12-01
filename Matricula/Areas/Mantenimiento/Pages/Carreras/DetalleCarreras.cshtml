@@ -1,8 +1,8 @@
 ﻿@page
-@model DetalleCo_RequesitosModel
+@model DetalleCarrerasModel
 @{
-    ViewData["Title"] = "Detalle Co-Requesito";
-    var name = Model.Input.DataUser.Nombre;
+    ViewData["Title"] = "Detalle Carreras";
+    var name = Model.Input.DataUser.Nombre_Carrera;
 }
 
 <div class="container">
@@ -11,7 +11,7 @@
         <div class="col-sm ">
             <div class="card text-center" style="width: 21rem;">
                 <div class="card-header ">
-                    <img class='imageUserDetails' src="~/lib/Image/iconsRequesitos.png" />
+                    <img class='imageUserDetails' src="~/lib/Image/iconsCarreras.png" />
                 </div>
                 <div class="card-body">
                     <table class="tableCursos">
@@ -38,17 +38,17 @@
                             </tr>
                             <tr>
                                 <th>
-                                    Codigo del Co-Requesito
+                                    Codigo de la Carrera
                                 </th>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>@Model.Input.DataUser.Codigo_CoRequesito</p>
+                                    <p>@Model.Input.DataUser.Codigo_Carrera</p>
                                 </td>
                             </tr>
                             <tr>
                                 <th>
-                                    Nombre del Co-Requesito
+                                    Nombre de la carrera
                                 </th>
                             </tr>
                             <tr>
@@ -57,13 +57,23 @@
                                 </td>
                             </tr>
                             <tr>
+                                <th>
+                                    Descripcion de la carrera
+                                </th>
+                            </tr>
+                            <tr>
                                 <td>
-                                    <form asp-area="Mantenimiento" asp-page="RegistrarCo_Requesitos" method="post">
+                                    <p>@Model.Input.DataUser.Descripcion_Carrera</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form asp-area="Mantenimiento" asp-page="RegistrarCarreras" method="post">
                                         @{
                                             var dataUser = JsonConvert.SerializeObject(Model.Input.DataUser);
                                         }
 
-                                        <input type="hidden" name="dataCo_Requesito" value="@dataUser" />
+                                        <input type="hidden" name="dataCarrera" value="@dataUser" />
                                         <input type="submit" value="Editar" class="btn btn-success ">
                                     </form>
                                 </td>
