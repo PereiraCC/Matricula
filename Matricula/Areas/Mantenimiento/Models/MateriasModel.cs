@@ -21,6 +21,9 @@ namespace Matricula.Areas.Mantenimiento.Models
         [Required(ErrorMessage = "El campo Creditos es requerido")]
         public string Creditos { get; set; }
 
+        [Required(ErrorMessage = "El campo Nombre Carrera es requerido")]
+        public string Nombre_Carrera { get; set; }
+
         [Required(ErrorMessage = "El campo Nombre Requesito es requerido")]
         public string Nombre_Requesito { get; set; }
 

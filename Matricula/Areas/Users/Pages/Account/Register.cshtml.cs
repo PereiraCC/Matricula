@@ -90,6 +90,7 @@ namespace Matricula.Areas.Users.Pages.Account
                         }
                         else
                         {
+                            _dataInput = null;
                             return Redirect("/Users/Users?area=Users");
                         }
                     }
@@ -104,6 +105,7 @@ namespace Matricula.Areas.Users.Pages.Account
                     {
                         if (modificando() == 0)
                         {
+                            _dataInput = null;
                             return Redirect("/Users/Users?area=Users");
                         }
                         else

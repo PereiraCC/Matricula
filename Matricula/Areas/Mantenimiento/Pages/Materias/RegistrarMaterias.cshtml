@@ -70,6 +70,21 @@
                                             </div>
                                         }
 
+                                        @if (Model.Input_Materias.Nombre_Carrera == null)
+                                        {
+                                            <div class="form-group">
+                                                @Html.DropDownList("Input_Materias.Nombre_Carrera", new SelectList(Model.Input_Materias.lista_Carreras, "Text", "Text"), "Seleccione una Carrera", new { @class = "form-control" })
+                                                <span asp-validation-for="Input_Materias.Nombre_Carrera" class="text-danger"></span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                @Html.DropDownList("Input_Materias.Nombre_Carrera", new SelectList(Model.Input_Materias.lista_Carreras, "Text", "Text"), Model.Input_Materias.Nombre_Carrera, new { @class = "form-control" })
+                                                <span asp-validation-for="Input_Materias.Nombre_Carrera" class="text-danger"></span>
+                                            </div>
+                                        }
+
                                         @if (Model.Input_Materias.Nombre_Requesito == null)
                                         {
                                             <div class="form-group">

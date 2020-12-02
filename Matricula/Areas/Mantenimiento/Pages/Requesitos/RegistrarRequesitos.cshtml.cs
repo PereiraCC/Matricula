@@ -60,6 +60,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Requesitos
                         }
                         else
                         {
+                            _dataInput = null;
                             return Redirect("/Mantenimiento/listadoRequesitos?area=Mantenimiento");
                         }
                     }
@@ -74,6 +75,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Requesitos
                     {
                         if (modificandoRequesito() == 0)
                         {
+                            _dataInput = null;
                             return Redirect("/Mantenimiento/listadoRequesitos?area=Mantenimiento");
                         }
                         else

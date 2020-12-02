@@ -16,10 +16,31 @@ namespace Matricula.Areas.Mantenimiento.Data
         ActionsBDRequesitos ActionsBDRequesitos = new ActionsBDRequesitos();
         ActionsBDCo_Requesitos ActionsBDCo_Requesitos = new ActionsBDCo_Requesitos();
         ActionsBDHorarios ActionsBDHorarios = new ActionsBDHorarios();
+        ActionsBDCarreras ActionsBDCarreras = new ActionsBDCarreras();
 
         public ActionsBDMaterias()
         {
             connection = con.getConnection();
+        }
+
+        public List<string> getCarreras()
+        {
+            List<string> carreras = new List<string>();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarCarreras", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                carreras.Add(reader["nombre"].ToString());
+            }
+            reader.Close();
+
+            return carreras;
         }
 
         public List<string> getRequesitos()
@@ -137,6 +158,7 @@ namespace Matricula.Areas.Mantenimiento.Data
             cmd.Parameters.Add(new SqlParameter("@nombre", data.Nombre));
             cmd.Parameters.Add(new SqlParameter("@descrip", data.Descripcion));
             cmd.Parameters.Add(new SqlParameter("@creditos", data.Creditos));
+            cmd.Parameters.Add(new SqlParameter("@nombreCarrera", data.Nombre_Carrera));
             cmd.Parameters.Add(new SqlParameter("@nombreRequesito", data.Nombre_Requesito));
             cmd.Parameters.Add(new SqlParameter("@nombreCo_Requesito", data.NombreCo_Requesito));
             cmd.Parameters.Add(new SqlParameter("@nombreHorario", data.NombreHorario));
@@ -191,6 +213,7 @@ namespace Matricula.Areas.Mantenimiento.Data
             List<RequesitosM> requesitos = ActionsBDRequesitos.getRequesitos();
             List<Co_RequesitosM> co_requesitos = ActionsBDCo_Requesitos.getCo_Requesitos();
             List<HorariosM> horarios = ActionsBDHorarios.getHorarios();
+            List<CarrerasM> carreras = ActionsBDCarreras.getCarreras();
             int identificador = Int32.Parse(id);
             MateriasM Materia = new MateriasM();
             if (connection.State != ConnectionState.Open)
@@ -208,6 +231,7 @@ namespace Matricula.Areas.Mantenimiento.Data
                 Materia.Nombre = reader["nombre"].ToString();
                 Materia.Descripcion = reader["descripcion"].ToString();
                 Materia.Creditos = reader["creditos"].ToString();
+                Materia.Nombre_Carrera = obtenerNombreCarrera(carreras, reader["idCarrera"].ToString());
                 Materia.Nombre_Requesito = obtenerNombreRequesitos(requesitos, reader["idRequesito"].ToString());
                 Materia.NombreCo_Requesito = obtenerNombreCo_Requesitos(co_requesitos, reader["idCo_Requesito"].ToString());
                 Materia.NombreHorario = obtenerNombreHorario(horarios, reader["idHorario"].ToString());
@@ -249,6 +273,20 @@ namespace Matricula.Areas.Mantenimiento.Data
             reader.Close();
 
             return estado;
+        }
+
+        public string obtenerNombreCarrera(List<CarrerasM> carreras, string codigo)
+        {
+            string nombre = "";
+            foreach (CarrerasM req in carreras)
+            {
+                if (req.Codigo_Carrera.Equals(codigo))
+                {
+                    nombre = req.Nombre_Carrera;
+                }
+            }
+
+            return nombre;
         }
 
         public string obtenerNombreRequesitos(List<RequesitosM> requesitos, string codigo)

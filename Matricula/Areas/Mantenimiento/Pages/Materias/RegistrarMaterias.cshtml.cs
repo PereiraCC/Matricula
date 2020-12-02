@@ -32,7 +32,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                     lista_Creditos = obtenerListaCreditos(),
                     lista_Requesitos = obtenerListaRequesitos(),
                     lista_CoRequesitos = obtenerListaCo_Requesitos(),
-                    listaHorarios = obtenerListaHorarios()
+                    listaHorarios = obtenerListaHorarios(),
+                    lista_Carreras = obtenerListaCarreras()
                 };
             }
 
@@ -44,6 +45,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                     Nombre = _dataUser1.Nombre,
                     Descripcion = _dataUser1.Descripcion,
                     Creditos = _dataUser1.Creditos,
+                    Nombre_Carrera = _dataUser1.Nombre_Carrera,
                     Nombre_Requesito = _dataUser1.Nombre_Requesito,
                     NombreCo_Requesito = _dataUser1.NombreCo_Requesito,
                     NombreHorario = _dataUser1.NombreHorario,
@@ -52,7 +54,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                     lista_Creditos = obtenerListaCreditos(),
                     lista_Requesitos = obtenerListaRequesitos(),
                     lista_CoRequesitos = obtenerListaCo_Requesitos(),
-                    listaHorarios = obtenerListaHorarios()
+                    listaHorarios = obtenerListaHorarios(),
+                    lista_Carreras = obtenerListaCarreras()
                 };
             }
 
@@ -64,6 +67,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
         public class InputModelMaterias : MateriasM
         {
             public List<SelectListItem> lista_Creditos { get; set; }
+
+            public List<SelectListItem> lista_Carreras { get; set; }
 
             public List<SelectListItem> lista_Requesitos { get; set; }
 
@@ -87,6 +92,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                         }
                         else
                         {
+                            _dataInput = null;
                             return Redirect("/Mantenimiento/listadoMaterias?area=Mantenimiento");
                         }
                     }
@@ -101,6 +107,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                     {
                         if (modificandoMateria() == 0)
                         {
+                            _dataInput = null;
                             return Redirect("/Mantenimiento/listadoMaterias?area=Mantenimiento");
                         }
                         else
@@ -229,5 +236,17 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
             return Lhorarios;
         }
 
+        public List<SelectListItem> obtenerListaCarreras()
+        {
+            List<string> carreras = actions.getCarreras();
+            List<SelectListItem> LCarreras = new List<SelectListItem>();
+            foreach (string dato in carreras)
+            {
+                SelectListItem temp = new SelectListItem(dato, dato);
+                LCarreras.Add(temp);
+            }
+
+            return LCarreras;
+        }
     }
 }
