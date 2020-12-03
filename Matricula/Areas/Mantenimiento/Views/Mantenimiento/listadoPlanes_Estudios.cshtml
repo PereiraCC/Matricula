@@ -1,0 +1,75 @@
+﻿@model List<PlanesEstudioM>
+@{
+    ViewData["Title"] = "Listado Planes de Estudio";
+}
+
+<h3>@ViewData["Title"]</h3>
+<div class="container p-4">
+    <div class="form-group">
+        <form asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="listadoPlanes_Estudios" method="get">
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input type="text" id="filtrar" name="filtrar" placeholder="Buscar Plan" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <input type="submit" value="Buscar" class="btn btn-success">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <a class="btn btn-success" asp-area="Mantenimiento" asp-page="/Planes_Estudios/listadoPlanes_Estudios">Todos</a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <a class="btn btn-primary text-white" asp-area="Mantenimiento" asp-page="/Planes_Estudios/RegistrarPlanes_Estudios">Nuevo</a>
+                    </div>
+                </div>
+            </div>
+        </form><br />
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-xs-6 col-md-2">
+                    <div class="card text-center">
+                        <div class="card-header ">
+                            <a asp-route-id="@item.Codigo_Plan" asp-area="Mantenimiento" asp-page="/Planes_Estudios/DetallePlan_Estudio">
+                                <img class='imageUsers' src="~/lib/Image/iconsPlan.png" />
+                            </a>
+                        </div>
+                        <div class="card-body text-center">
+                            <table class="tableCursos">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="text-center">
+                                                <p>Codigo: @Html.DisplayFor(modelItem => item.Codigo_Plan)</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="text-center">
+                                                <p>Nombre: @Html.DisplayFor(modelItem => item.Nombre_Plan)</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a asp-route-id="@item.Codigo_Plan" asp-area="Mantenimiento" asp-page="/Planes_Estudios/DetallePlan_Estudio">
+                                                <input type="submit" value="Detalle" class="btn btn-success ">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

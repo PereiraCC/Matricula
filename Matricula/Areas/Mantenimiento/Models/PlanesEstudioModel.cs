@@ -21,8 +21,6 @@ namespace Matricula.Areas.Mantenimiento.Models
         [Required(ErrorMessage = "El campo Nombre de la Carrera es requerido")]
         public string Nombre_Carrera { get; set; }
 
-        public List<string> Lista_Materias { get; set; }
-
         [TempData]
         public string ErrorMessage { get; set; }
     }

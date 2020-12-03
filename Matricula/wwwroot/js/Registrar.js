@@ -60,7 +60,7 @@ function actualizacionCombo(valor) {
 function agregarTabla(valor) {
     var nombreMateria = valor;
     var i = 1; //contador para asignar id al boton que borrara la fila
-    var fila = '<tr id="row' + i + '"><td>' + nombreMateria + '</td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove" onclick="eliminarDatoTabla(this)">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+    var fila = '<tr id="row' + i + '><td>' + nombreMateria + '</td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove" onclick="eliminarDatoTabla(this)">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
 
     i++;
     $('#mytable tr:first').after(fila);

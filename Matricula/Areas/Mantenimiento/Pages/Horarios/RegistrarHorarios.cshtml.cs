@@ -79,6 +79,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
                         else
                         {
                             _dataInput = null;
+                            _dataUser1 = null;
                             return Redirect("/Mantenimiento/listadoHorarios?area=Mantenimiento");
                         }
                     }
@@ -94,6 +95,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
                         if (modificandoHorario() == 0)
                         {
                             _dataInput = null;
+                            _dataUser1 = null;
                             return Redirect("/Mantenimiento/listadoHorarios?area=Mantenimiento");
                         }
                         else

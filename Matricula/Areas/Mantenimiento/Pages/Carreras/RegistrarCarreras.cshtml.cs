@@ -63,6 +63,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Carreras
                         else
                         {
                             _dataInput = null;
+                            _dataUser1 = null;
                             return Redirect("/Mantenimiento/listadoCarreras?area=Mantenimiento");
                         }
                     }
@@ -78,6 +79,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Carreras
                         if (modificandoCarrera() == 0)
                         {
                             _dataInput = null;
+                            _dataUser1 = null;
                             return Redirect("/Mantenimiento/listadoCarreras?area=Mantenimiento");
                         }
                         else

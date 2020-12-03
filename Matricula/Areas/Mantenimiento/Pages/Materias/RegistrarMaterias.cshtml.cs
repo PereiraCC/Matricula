@@ -93,6 +93,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                         else
                         {
                             _dataInput = null;
+                            _dataUser1 = null;
                             return Redirect("/Mantenimiento/listadoMaterias?area=Mantenimiento");
                         }
                     }
@@ -108,6 +109,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
                         if (modificandoMateria() == 0)
                         {
                             _dataInput = null;
+                            _dataUser1 = null;
                             return Redirect("/Mantenimiento/listadoMaterias?area=Mantenimiento");
                         }
                         else

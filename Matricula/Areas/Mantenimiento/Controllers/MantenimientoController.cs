@@ -18,6 +18,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
         ActionsBDHorarios actionsHorarios = new ActionsBDHorarios();
         ActionsBDMaterias actionsMaterias = new ActionsBDMaterias();
         ActionsBDCarreras actionsCarreras = new ActionsBDCarreras();
+        ActionsBDPlanesEstudio actionsPlanes = new ActionsBDPlanesEstudio();
 
         public IActionResult Mantenimiento(string filtrar)
         {
@@ -323,6 +324,42 @@ namespace Matricula.Areas.Mantenimiento.Controllers
         }
 
         public CarrerasM buscarCarrera(List<CarrerasM> data, string filtro)
+        {
+            CarrerasM resul = new CarrerasM();
+            foreach (CarrerasM temp in data)
+            {
+                if (temp.Nombre_Carrera.Equals(filtro))
+                {
+                    resul.Codigo_Carrera = temp.Codigo_Carrera;
+                    resul.Nombre_Carrera = temp.Nombre_Carrera;
+                    resul.Descripcion_Carrera = temp.Descripcion_Carrera;
+                }
+            }
+
+            return resul;
+        }
+
+        public IActionResult listadoPlanes_Estudios(string filtrar)
+        {
+            List<PlanesEstudioM> data = actionsPlanes.getPlanes();
+            if (filtrar == null)
+            {
+                return View(data);
+            }
+            else
+            {
+                //List<CarrerasM> datafiltrada = new List<CarrerasM>();
+                //CarrerasM resul = buscarCarrera(data, filtrar);
+                //if (resul.Nombre_Carrera != null)
+                //{
+                //    datafiltrada.Add(resul);
+                //}
+
+                return View(data);
+            }
+        }
+
+        public CarrerasM buscarPlan(List<CarrerasM> data, string filtro)
         {
             CarrerasM resul = new CarrerasM();
             foreach (CarrerasM temp in data)

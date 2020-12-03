@@ -64,7 +64,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
                         else
                         {
                             _dataInput = null;
-                            return Redirect("/Mantenimiento/Mantenimiento?area=Mantenimiento");
+                            _dataUser1 = null;
+                            return Redirect("/Mantenimiento/listadoCo_Requesitos?area=Mantenimiento");
                         }
                     }
                     else
@@ -79,6 +80,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Co_Requesitos
                         if (modificando() == 0)
                         {
                             _dataInput = null;
+                            _dataUser1 = null;
                             return Redirect("/Mantenimiento/listadoCo_Requesitos?area=Mantenimiento");
                         }
                         else

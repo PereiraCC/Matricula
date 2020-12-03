@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Matricula.Areas.Mantenimiento.Data;
 using Matricula.Areas.Mantenimiento.Models;
+using Matricula.Controllers;
+using Matricula.Library;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace Matricula.Areas.Mantenimiento.Pages.Planes_Estudios
 {
@@ -15,22 +18,33 @@ namespace Matricula.Areas.Mantenimiento.Pages.Planes_Estudios
         public static InputModelPlanesEstudio _dataInput;
         ActionsBDPlanesEstudio actions = new ActionsBDPlanesEstudio();
         private static PlanesEstudioM _dataUser1;
-        List<string> StrmateriasTec, StrmateriasTur, StrmateriasCri, StrmateriasDen, StrmateriasElec, StrmateriasSecre, StrmateriasAdm;
 
         public void OnGet()
         {
-            List<List<SelectListItem>> Data = obtenerListaMateriasSegunCarrera();
-            Input_Plan = new InputModelPlanesEstudio
+            if (_dataInput != null)
             {
-                lista_Carreras = obtenerListaCarreras(),
-                lista_MateriasTecnologias = Data[0],
-                lista_MateriasTurismo = Data[1],
-                lista_MateriasCriminal = Data[2],
-                lista_MateriasDental = Data[3],
-                lista_MateriasElectronica = Data[4],
-                lista_MateriasSecretariado = Data[5],
-                lista_MateriasAdministracion = Data[6],
-            };
+                Input_Plan = _dataInput;
+            }
+            else
+            {
+                Input_Plan = new InputModelPlanesEstudio
+                {
+                    lista_Carreras = obtenerListaCarreras()
+                };
+            }
+
+            if (_dataUser1 != null)
+            {
+                Input_Plan = new InputModelPlanesEstudio
+                {
+                    Codigo_Plan = _dataUser1.Codigo_Plan,
+                    Nombre_Plan = _dataUser1.Nombre_Plan,
+                    Descripcion_Plan = _dataUser1.Descripcion_Plan,
+                    Nombre_Carrera = _dataUser1.Nombre_Carrera,
+                    lista_Carreras = obtenerListaCarreras()
+                };
+            }
+
         }
 
         [BindProperty]
@@ -38,23 +52,103 @@ namespace Matricula.Areas.Mantenimiento.Pages.Planes_Estudios
 
         public class InputModelPlanesEstudio : PlanesEstudioM
         {
-
             public List<SelectListItem> lista_Carreras { get; set; }
+        }
 
-            public List<SelectListItem> lista_MateriasTecnologias { get; set; }
+        public IActionResult OnPost(string dataPlan)
+        {
+            if (dataPlan == null)
+            {
+                if (_dataUser1 == null)
+                {
+                    if (registrandoPlanEstudio() == 0)
+                    {
+                        if (LUser.usuario == null)
+                        {
+                            return RedirectToAction(nameof(HomeController.Index), "Home");
+                        }
+                        else
+                        {
+                            _dataInput = null;
+                            _dataUser1 = null;
+                            return Redirect("/Mantenimiento/listadoPlanes_Estudios?area=Mantenimiento");
+                        }
+                    }
+                    else
+                    {
+                        return Redirect("/Mantenimiento/Register_PlanesEstudio");
+                    }
+                }
+                else
+                {
+                    if (LUser.usuario.Rol.Equals("Admin"))
+                    {
+                        if (modificandoPlan() == 0)
+                        {
+                            _dataInput = null;
+                            _dataUser1 = null;
+                            return Redirect("/Mantenimiento/listadoPlanes_Estudios?area=Mantenimiento");
+                        }
+                        else
+                        {
+                            return Redirect("/Mantenimiento/Register_PlanesEstudio");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction(nameof(HomeController.Index), "Home");
+                    }
+                }
+            }
+            else
+            {
+                _dataUser1 = JsonConvert.DeserializeObject<PlanesEstudioM>(dataPlan);
+                return Redirect("/Mantenimiento/Register_PlanesEstudio");
+            }
+        }
 
-            public List<SelectListItem> lista_MateriasTurismo { get; set; }
+        private int registrandoPlanEstudio()
+        {
+            _dataInput = Input_Plan;
+            int dato = 1;
 
-            public List<SelectListItem> lista_MateriasCriminal { get; set; }
+            int cantidad = Int32.Parse(actions.verificarCodigoPlan(_dataInput.Codigo_Plan));
+            if (cantidad == 0)
+            {
+                int estado = Int32.Parse(actions.registrarPlan(_dataInput));
+                if (estado == 0)
+                {
+                    dato = 0;
+                }
+                else
+                {
+                    dato = 1;
+                }
+            }
+            else
+            {
+                _dataInput.ErrorMessage = $"El {Input_Plan.Codigo_Plan} ya esta registrado";
+                dato = 1;
+            }
 
-            public List<SelectListItem> lista_MateriasDental { get; set; }
+            return dato;
+        }
 
-            public List<SelectListItem> lista_MateriasElectronica { get; set; }
+        public int modificandoPlan()
+        {
+            _dataInput = Input_Plan;
+            int dato = 1;
 
-            public List<SelectListItem> lista_MateriasSecretariado { get; set; }
-
-            public List<SelectListItem> lista_MateriasAdministracion { get; set; }
-
+            int estado = Int32.Parse(actions.modificarPlan(_dataInput));
+            if (estado == 0)
+            {
+                dato = 0;
+            }
+            else
+            {
+                dato = 1;
+            }
+            return dato;
         }
 
         public List<SelectListItem> obtenerListaCarreras()
@@ -68,49 +162,6 @@ namespace Matricula.Areas.Mantenimiento.Pages.Planes_Estudios
             }
 
             return LCarreras;
-        }
-
-        public List<List<SelectListItem>> obtenerListaMateriasSegunCarrera()
-        {
-            List<List<string>> dataMaterias = new List<List<string>>();
-            List<List<SelectListItem>> data = new List<List<SelectListItem>>();
-            List<string> carreras = actions.getCarreras();
-            
-            foreach (string dato in carreras)
-            {
-                List<string> materiasTemp = actions.getMateriasXCarrera(dato);
-                dataMaterias.Add(materiasTemp);
-            }
-
-            List<SelectListItem> LMateriasTec = llenarMaterias(dataMaterias[0]);
-            List<SelectListItem> LMateriasTur = llenarMaterias(dataMaterias[1]);
-            List<SelectListItem> LMateriasCri = llenarMaterias(dataMaterias[2]);
-            List<SelectListItem> LMateriasDen = llenarMaterias(dataMaterias[3]);
-            List<SelectListItem> LMateriasElec = llenarMaterias(dataMaterias[4]);
-            List<SelectListItem> LMateriasSecre = llenarMaterias(dataMaterias[5]);
-            List<SelectListItem> LMateriasAdm = llenarMaterias(dataMaterias[6]);
-
-            data.Add(LMateriasTec);
-            data.Add(LMateriasTur);
-            data.Add(LMateriasCri);
-            data.Add(LMateriasDen);
-            data.Add(LMateriasElec);
-            data.Add(LMateriasSecre);
-            data.Add(LMateriasAdm);
-
-            return data;
-        }
-
-        public List<SelectListItem> llenarMaterias(List<string> data)
-        {
-            List<SelectListItem> listado = new List<SelectListItem>();
-            foreach (string dato in data) 
-            {
-                SelectListItem temp = new SelectListItem(dato, dato);
-                listado.Add(temp);
-            }
-
-            return listado;
         }
     }
 }

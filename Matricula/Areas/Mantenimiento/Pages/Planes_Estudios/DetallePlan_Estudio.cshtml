@@ -1,0 +1,98 @@
+﻿@page
+@model DetallePlan_EstudioModel
+@{
+    ViewData["Title"] = "Detalle Plan Estudio";
+    var name = Model.Input.DataUser.Nombre_Plan;
+}
+
+
+<div class="container">
+    <h3>@ViewData["Title"]</h3><br />
+    <div class="row">
+        <div class="col-sm ">
+            <div class="card text-center" style="width: 21rem;">
+                <div class="card-header ">
+                    <img class='imageUserDetails' src="~/lib/Image/iconsPlan.png" />
+                </div>
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>Nombre: @name</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Informacion
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Codigo del Plan Estudio
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Codigo_Plan</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre del Plan Estudio
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Descripcion del Plan Estudio
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Descripcion_Plan</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Carrera
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.Nombre_Carrera</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form asp-area="Mantenimiento" asp-page="RegistrarPlanes_Estudios" method="post">
+                                        @{
+                                            var dataUser = JsonConvert.SerializeObject(Model.Input.DataUser);
+                                        }
+
+                                        <input type="hidden" name="dataPlan" value="@dataUser" />
+                                        <input type="submit" value="Editar" class="btn btn-success ">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
