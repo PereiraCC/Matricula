@@ -1,0 +1,87 @@
+﻿@page "/Mantenimiento/Register_Periodos"
+@model RegistrarPeriodosModel
+@{
+    ViewData["Title"] = "Registro Periodos";
+}
+
+<html>
+<head>
+    @*<link rel="stylesheet" href="~/css/Register.css" />
+        <script type="text/javascript" src="~/js/Registrar.js"></script>*@
+</head>
+<body>
+    <div class="container p-4">
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            <div class="col-xs-6 col-md-5">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">@ViewData["Title"]</h3><br />
+                    </div>
+                    <div class="panel-body">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <div id="header" class="bg-info">
+                                        <h2 class="mb-0 t">
+                                            <button class="btn btn-link text-light" type="button" data-toggle="collapse"
+                                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Ingresar Informacion
+                                            </button>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                     data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        @if (Model.Input_Periodos.Codigo_Periodo == null)
+                                        {
+                                            <div class="form-group">
+                                                <input asp-for="Input_Periodos.Codigo_Periodo" placeholder="Codigo Periodo" class="form-control" autofocus />
+                                                <span asp-validation-for="Input_Periodos.Codigo_Periodo" class="text-danger"></span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                <input asp-for="Input_Periodos.Codigo_Periodo" placeholder="Codigo Horario" class="form-control" autofocus readonly />
+                                                <span asp-validation-for="Input_Periodos.Codigo_Periodo" class="text-danger"></span>
+                                            </div>
+                                        }
+                                            <div class="form-group">
+                                                <input asp-for="Input_Periodos.Nombre_Periodo" placeholder="Nombre del Periodo" class="form-control" autofocus />
+                                                <span asp-validation-for="Input_Periodos.Nombre_Periodo" class="text-danger"></span>
+                                            </div>
+
+                                        @if (Model.Input_Periodos.Nombre_Anno == null)
+                                        {
+                                            <div class="form-group">
+                                                @Html.DropDownList("Input_Periodos.Nombre_Anno", new SelectList(Model.Input_Periodos.Annos, "Text", "Text"), "Seleccione un Año", new { @class = "form-control" })
+                                                <span asp-validation-for="Input_Periodos.Nombre_Anno" class="text-danger"></span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="form-group">
+                                                @Html.DropDownList("Input_Periodos.Nombre_Anno", new SelectList(Model.Input_Periodos.Annos, "Text", "Text"), Model.Input_Periodos.Nombre_Anno, new { @class = "form-control" })
+                                                <span asp-validation-for="Input_Periodos.Nombre_Anno" class="text-danger"></span>
+                                            </div>
+                                        }
+                                        
+
+                                        <div class="form-group text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-danger">@Html.DisplayFor(m => m.Input_Periodos.ErrorMessage)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

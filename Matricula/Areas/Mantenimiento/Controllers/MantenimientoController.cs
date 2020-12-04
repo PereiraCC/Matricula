@@ -19,6 +19,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
         ActionsBDMaterias actionsMaterias = new ActionsBDMaterias();
         ActionsBDCarreras actionsCarreras = new ActionsBDCarreras();
         ActionsBDPlanesEstudio actionsPlanes = new ActionsBDPlanesEstudio();
+        ActionsBDPeriodos actionsPeriodos = new ActionsBDPeriodos();
 
         public IActionResult Mantenimiento(string filtrar)
         {
@@ -59,11 +60,11 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             List<string> nombres = new List<string>();
             nombres.Add("Co-Requesitos");
             nombres.Add("Requesitos");
+            nombres.Add("Periodos");
             nombres.Add("Horarios");
             nombres.Add("Materias");
             nombres.Add("Carreras");
             nombres.Add("Planes Estudios");
-            nombres.Add("Ofertas Academicas");
 
             return nombres;
         }
@@ -73,11 +74,11 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             List<string> pathImages = new List<string>();
             pathImages.Add("iconsRequesitos.png");
             pathImages.Add("iconsRequesitos.png");
+            pathImages.Add("iconsOferta.png");
             pathImages.Add("iconsHorario.png");
             pathImages.Add("iconsMaterias.png");
             pathImages.Add("iconsCarreras.png");
             pathImages.Add("iconsPlan.png");
-            pathImages.Add("iconsOferta.png");
 
             return pathImages;
         }
@@ -87,6 +88,7 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             List<string> nombresCarpetas = new List<string>();
             nombresCarpetas.Add("Co_Requesitos");
             nombresCarpetas.Add("Requesitos");
+            nombresCarpetas.Add("Periodos");
             nombresCarpetas.Add("Horarios");
             nombresCarpetas.Add("Materias");
             nombresCarpetas.Add("Carreras");
@@ -101,11 +103,11 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             List<string> nombresRegistrar = new List<string>();
             nombresRegistrar.Add("RegistrarCo_Requesitos");
             nombresRegistrar.Add("RegistrarRequesitos");
+            nombresRegistrar.Add("RegistrarPeriodos");
             nombresRegistrar.Add("RegistrarHorarios");
             nombresRegistrar.Add("RegistrarMaterias");
             nombresRegistrar.Add("RegistrarCarreras");
             nombresRegistrar.Add("RegistrarPlanes_Estudios");
-            nombresRegistrar.Add("RegistrarOfertas_Academicas");
 
             return nombresRegistrar;
         }
@@ -115,11 +117,11 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             List<string> nombresAction = new List<string>();
             nombresAction.Add("listadoCo_Requesitos");
             nombresAction.Add("listadoRequesitos");
+            nombresAction.Add("listadoPeriodos");
             nombresAction.Add("listadoHorarios");
             nombresAction.Add("listadoMaterias");
             nombresAction.Add("listadoCarreras");
             nombresAction.Add("listadoPlanes_Estudios");
-            nombresAction.Add("listadoOfertas_Academicas");
 
             return nombresAction;
         }
@@ -221,6 +223,42 @@ namespace Matricula.Areas.Mantenimiento.Controllers
                 {
                     resul.Codigo_Requesito = temp.Codigo_Requesito;
                     resul.Nombre_Requesito = temp.Nombre_Requesito;
+                }
+            }
+
+            return resul;
+        }
+
+        public IActionResult listadoPeriodos(string filtrar)
+        {
+            List<PeriodosM> data = actionsPeriodos.getPeriodos();
+            if (filtrar == null)
+            {
+                return View(data);
+            }
+            else
+            {
+                List<PeriodosM> datafiltrada = new List<PeriodosM>();
+                PeriodosM resul = buscarPeriodos(data, filtrar);
+                if (resul.Nombre_Periodo != null)
+                {
+                    datafiltrada.Add(resul);
+                }
+
+                return View(data);
+            }
+        }
+
+        public PeriodosM buscarPeriodos(List<PeriodosM> data, string filtro)
+        {
+            PeriodosM resul = new PeriodosM();
+            foreach (PeriodosM temp in data)
+            {
+                if (temp.Nombre_Periodo.Equals(filtro))
+                {
+                    resul.Codigo_Periodo = temp.Codigo_Periodo;
+                    resul.Nombre_Periodo = temp.Nombre_Periodo;
+                    resul.Nombre_Anno = temp.Nombre_Anno;
                 }
             }
 
