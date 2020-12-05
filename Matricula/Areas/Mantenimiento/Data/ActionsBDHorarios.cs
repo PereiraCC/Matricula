@@ -53,6 +53,7 @@ namespace Matricula.Areas.Mantenimiento.Data
             cmd.Parameters.Add(new SqlParameter("@dia", data.Dia));
             cmd.Parameters.Add(new SqlParameter("@Hora_Inicial", data.Hora_Inicial));
             cmd.Parameters.Add(new SqlParameter("@Hora_Final", data.Hora_Final));
+            cmd.Parameters.Add(new SqlParameter("@nombrePeriodo", data.Nombre_Periodo));
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -94,7 +95,7 @@ namespace Matricula.Areas.Mantenimiento.Data
         public HorariosM getUnHorario(string id)
         {
             int identificador = Int32.Parse(id);
-            HorariosM Requesito = new HorariosM();
+            HorariosM Horario = new HorariosM();
             if (connection.State != ConnectionState.Open)
             {
                 connection.Open();
@@ -106,14 +107,15 @@ namespace Matricula.Areas.Mantenimiento.Data
 
             while (reader.Read())
             {
-                Requesito.Codigo_Horario = reader["idHorario"].ToString();
-                Requesito.Dia = reader["Dia"].ToString();
-                Requesito.Hora_Inicial = reader["Hora_Inicial"].ToString();
-                Requesito.Hora_Final = reader["Hora_Final"].ToString();
+                Horario.Codigo_Horario = reader["idHorario"].ToString();
+                Horario.Dia = reader["Dia"].ToString();
+                Horario.Hora_Inicial = reader["Hora_Inicial"].ToString();
+                Horario.Hora_Final = reader["Hora_Final"].ToString();
+                Horario.Nombre_Periodo = reader["idPeriodo"].ToString();
             }
             reader.Close();
 
-            return Requesito;
+            return Horario;
         }
 
         public string modificarHorario(HorariosM input)

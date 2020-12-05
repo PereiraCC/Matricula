@@ -17,6 +17,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
     {
         public static InputModelHorarios _dataInput;
         ActionsBDHorarios actions = new ActionsBDHorarios();
+        ActionsBDPeriodos actionsP = new ActionsBDPeriodos();
         private static HorariosM _dataUser1;
 
         public void OnGet()
@@ -31,7 +32,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
                 {
                     dias = obtenerDias(),
                     Horas_Iniciales = obtenerHoras_Iniciales(),
-                    Horas_Finales = obtenerHoras_Finales()
+                    Horas_Finales = obtenerHoras_Finales(),
+                    Lista_Periodos = obtenerPeriodos()
                 };
             }
 
@@ -43,9 +45,11 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
                     Dia = _dataUser1.Dia,
                     Hora_Inicial = _dataUser1.Hora_Inicial,
                     Hora_Final = _dataUser1.Hora_Final,
+                    Nombre_Periodo = _dataUser1.Nombre_Periodo,
                     dias = obtenerDias(),
                     Horas_Iniciales = obtenerHoras_Iniciales(),
-                    Horas_Finales = obtenerHoras_Finales()
+                    Horas_Finales = obtenerHoras_Finales(),
+                    Lista_Periodos = obtenerPeriodos()
                 };
             }
             
@@ -61,6 +65,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
             public List<SelectListItem> Horas_Iniciales { get; set; }
 
             public List<SelectListItem> Horas_Finales { get; set; }
+
+            public List<SelectListItem> Lista_Periodos { get; set; }
 
         }
 
@@ -119,6 +125,8 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
 
         public int registrandoHorario()
         {
+            string[] temp = Input_Horarios.Nombre_Periodo.Split(" ");
+            Input_Horarios.Nombre_Periodo = temp[0] + " " + temp[1];
             _dataInput = Input_Horarios;
             int dato = 1;
 
@@ -221,5 +229,21 @@ namespace Matricula.Areas.Mantenimiento.Pages.Horarios
 
             return horas_Finales;
         }
+
+        public List<SelectListItem> obtenerPeriodos()
+        {
+            List<PeriodosM> periodos = actionsP.getPeriodos();
+
+            List<SelectListItem> LPeriodos = new List<SelectListItem>();
+            foreach (PeriodosM dato in periodos)
+            {
+
+                SelectListItem temp = new SelectListItem(dato.Nombre_Periodo + " " + dato.Nombre_Anno, dato.Nombre_Periodo + " " + dato.Nombre_Anno);
+                LPeriodos.Add(temp);
+            }
+
+            return LPeriodos;
+        }
+
     }
 }

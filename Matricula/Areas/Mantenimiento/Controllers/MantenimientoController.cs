@@ -169,25 +169,32 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             else
             {
                 List<Co_RequesitosM> datafiltrada = new List<Co_RequesitosM>();
-                Co_RequesitosM resul = buscarCo_Requesito(data, filtrar);
-                if (resul.Nombre != null)
-                {
-                    datafiltrada.Add(resul);
-                }
+                List<Co_RequesitosM> resul = buscarCo_Requesito(data, filtrar);
 
+                foreach(Co_RequesitosM temp in resul)
+                {
+                    if (temp.Nombre != null)
+                    {
+                        datafiltrada.Add(temp);
+                    }
+                }
+                
                 return View(datafiltrada);
             }
         }
 
-        public Co_RequesitosM buscarCo_Requesito(List<Co_RequesitosM> data, string filtro)
+        public List<Co_RequesitosM> buscarCo_Requesito(List<Co_RequesitosM> data, string filtro)
         {
-            Co_RequesitosM resul = new Co_RequesitosM();
+            List<Co_RequesitosM> resul = new List<Co_RequesitosM>();
             foreach (Co_RequesitosM temp in data)
             {
                 if (temp.Nombre.Equals(filtro))
                 {
-                    resul.Codigo_CoRequesito = temp.Codigo_CoRequesito;
-                    resul.Nombre = temp.Nombre;
+                    Co_RequesitosM tempe = new Co_RequesitosM();
+                    tempe.Codigo_CoRequesito = temp.Codigo_CoRequesito;
+                    tempe.Nombre = temp.Nombre;
+
+                    resul.Add(tempe);
                 }
             }
 
@@ -204,25 +211,31 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             else
             {
                 List<RequesitosM> datafiltrada = new List<RequesitosM>();
-                RequesitosM resul = buscarRequesito(data, filtrar);
-                if (resul.Nombre_Requesito != null)
+                List<RequesitosM> resul = buscarRequesito(data, filtrar);
+                foreach(RequesitosM temp in resul)
                 {
-                    datafiltrada.Add(resul);
+                    if (temp.Nombre_Requesito != null)
+                    {
+                        datafiltrada.Add(temp);
+                    }
                 }
-
+               
                 return View(datafiltrada);
             }
         }
 
-        public RequesitosM buscarRequesito(List<RequesitosM> data, string filtro)
+        public List<RequesitosM> buscarRequesito(List<RequesitosM> data, string filtro)
         {
-            RequesitosM resul = new RequesitosM();
+            List<RequesitosM> resul = new List<RequesitosM>();
             foreach (RequesitosM temp in data)
             {
                 if (temp.Nombre_Requesito.Equals(filtro))
                 {
-                    resul.Codigo_Requesito = temp.Codigo_Requesito;
-                    resul.Nombre_Requesito = temp.Nombre_Requesito;
+                    RequesitosM tempe = new RequesitosM();
+                    tempe.Codigo_Requesito = temp.Codigo_Requesito;
+                    tempe.Nombre_Requesito = temp.Nombre_Requesito;
+
+                    resul.Add(tempe);
                 }
             }
 
@@ -239,26 +252,32 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             else
             {
                 List<PeriodosM> datafiltrada = new List<PeriodosM>();
-                PeriodosM resul = buscarPeriodos(data, filtrar);
-                if (resul.Nombre_Periodo != null)
+                List<PeriodosM> resul = buscarPeriodos(data, filtrar);
+                foreach(PeriodosM temp in resul)
                 {
-                    datafiltrada.Add(resul);
+                    if (temp.Nombre_Periodo != null)
+                    {
+                        datafiltrada.Add(temp);
+                    }
                 }
-
-                return View(data);
+                
+                return View(datafiltrada);
             }
         }
 
-        public PeriodosM buscarPeriodos(List<PeriodosM> data, string filtro)
+        public List<PeriodosM> buscarPeriodos(List<PeriodosM> data, string filtro)
         {
-            PeriodosM resul = new PeriodosM();
+            List<PeriodosM> resul = new List<PeriodosM>();
             foreach (PeriodosM temp in data)
             {
                 if (temp.Nombre_Periodo.Equals(filtro))
                 {
-                    resul.Codigo_Periodo = temp.Codigo_Periodo;
-                    resul.Nombre_Periodo = temp.Nombre_Periodo;
-                    resul.Nombre_Anno = temp.Nombre_Anno;
+                    PeriodosM tempe = new PeriodosM();
+                    tempe.Codigo_Periodo = temp.Codigo_Periodo;
+                    tempe.Nombre_Periodo = temp.Nombre_Periodo;
+                    tempe.Nombre_Anno = temp.Nombre_Anno;
+
+                    resul.Add(tempe);
                 }
             }
 
@@ -275,27 +294,34 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             else
             {
                 List<HorariosM> datafiltrada = new List<HorariosM>();
-                HorariosM resul = buscarHorario(data, filtrar);
-                if (resul.Dia != null)
+                List<HorariosM> resul = buscarHorario(data, filtrar);
+                foreach(HorariosM temp in resul)
                 {
-                    datafiltrada.Add(resul);
+                    if (temp.Dia != null)
+                    {
+                        datafiltrada.Add(temp);
+                    }
                 }
-
+                
                 return View(datafiltrada);
             }
         }
 
-        public HorariosM buscarHorario(List<HorariosM> data, string filtro)
+        public List<HorariosM> buscarHorario(List<HorariosM> data, string filtro)
         {
-            HorariosM resul = new HorariosM();
+            List<HorariosM> resul = new List<HorariosM>();
             foreach (HorariosM temp in data)
             {
                 if (temp.Dia.Equals(filtro))
                 {
-                    resul.Codigo_Horario = temp.Codigo_Horario;
-                    resul.Dia = temp.Dia;
-                    resul.Hora_Inicial = temp.Hora_Inicial;
-                    resul.Hora_Final = temp.Hora_Final;
+                    HorariosM tempe = new HorariosM();
+                    tempe.Codigo_Horario = temp.Codigo_Horario;
+                    tempe.Dia = temp.Dia;
+                    tempe.Hora_Inicial = temp.Hora_Inicial;
+                    tempe.Hora_Final = temp.Hora_Final;
+                    tempe.Nombre_Periodo = temp.Nombre_Periodo;
+
+                    resul.Add(tempe);
                 }
             }
 
@@ -312,29 +338,35 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             else
             {
                 List<MateriasM> datafiltrada = new List<MateriasM>();
-                MateriasM resul = buscarMateria(data, filtrar);
-                if (resul.Nombre != null)
+                List<MateriasM> resul = buscarMateria(data, filtrar);
+                foreach(MateriasM temp in resul)
                 {
-                    datafiltrada.Add(resul);
+                    if (temp.Nombre != null)
+                    {
+                        datafiltrada.Add(temp);
+                    }
                 }
-
+                
                 return View(datafiltrada);
             }
         }
 
-        public MateriasM buscarMateria(List<MateriasM> data, string filtro)
+        public List<MateriasM> buscarMateria(List<MateriasM> data, string filtro)
         {
-            MateriasM resul = new MateriasM();
+            List<MateriasM> resul = new List<MateriasM>();
             foreach (MateriasM temp in data)
             {
                 if (temp.Nombre.Equals(filtro))
                 {
-                    resul.Codigo_Materia = temp.Codigo_Materia;
-                    resul.Nombre = temp.Nombre;
-                    resul.Descripcion = temp.Descripcion;
-                    resul.Creditos = temp.Creditos;
-                    resul.Nombre_Requesito = temp.Nombre_Requesito;
-                    resul.NombreCo_Requesito = temp.NombreCo_Requesito;
+                    MateriasM tempe = new MateriasM();
+                    tempe.Codigo_Materia = temp.Codigo_Materia;
+                    tempe.Nombre = temp.Nombre;
+                    tempe.Descripcion = temp.Descripcion;
+                    tempe.Creditos = temp.Creditos;
+                    tempe.Nombre_Requesito = temp.Nombre_Requesito;
+                    tempe.NombreCo_Requesito = temp.NombreCo_Requesito;
+
+                    resul.Add(tempe);
                 }
             }
 
@@ -351,26 +383,32 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             else
             {
                 List<CarrerasM> datafiltrada = new List<CarrerasM>();
-                CarrerasM resul = buscarCarrera(data, filtrar);
-                if (resul.Nombre_Carrera != null)
+                List<CarrerasM> resul = buscarCarrera(data, filtrar);
+                foreach(CarrerasM temp in resul)
                 {
-                    datafiltrada.Add(resul);
+                    if (temp.Nombre_Carrera != null)
+                    {
+                        datafiltrada.Add(temp);
+                    }
                 }
-
+                
                 return View(datafiltrada);
             }
         }
 
-        public CarrerasM buscarCarrera(List<CarrerasM> data, string filtro)
+        public List<CarrerasM> buscarCarrera(List<CarrerasM> data, string filtro)
         {
-            CarrerasM resul = new CarrerasM();
+            List<CarrerasM> resul = new List<CarrerasM>();
             foreach (CarrerasM temp in data)
             {
                 if (temp.Nombre_Carrera.Equals(filtro))
                 {
-                    resul.Codigo_Carrera = temp.Codigo_Carrera;
-                    resul.Nombre_Carrera = temp.Nombre_Carrera;
-                    resul.Descripcion_Carrera = temp.Descripcion_Carrera;
+                    CarrerasM tempe = new CarrerasM();
+                    tempe.Codigo_Carrera = temp.Codigo_Carrera;
+                    tempe.Nombre_Carrera = temp.Nombre_Carrera;
+                    tempe.Descripcion_Carrera = temp.Descripcion_Carrera;
+
+                    resul.Add(tempe);
                 }
             }
 
@@ -386,27 +424,34 @@ namespace Matricula.Areas.Mantenimiento.Controllers
             }
             else
             {
-                //List<CarrerasM> datafiltrada = new List<CarrerasM>();
-                //CarrerasM resul = buscarCarrera(data, filtrar);
-                //if (resul.Nombre_Carrera != null)
-                //{
-                //    datafiltrada.Add(resul);
-                //}
-
+                List<PlanesEstudioM> datafiltrada = new List<PlanesEstudioM>();
+                List<PlanesEstudioM> resul = buscarPlan(data, filtrar);
+                foreach(PlanesEstudioM temp in resul)
+                {
+                    if (temp.Nombre_Plan != null)
+                    {
+                        datafiltrada.Add(temp);
+                    }
+                }
+               
                 return View(data);
             }
         }
 
-        public CarrerasM buscarPlan(List<CarrerasM> data, string filtro)
+        public List<PlanesEstudioM> buscarPlan(List<PlanesEstudioM> data, string filtro)
         {
-            CarrerasM resul = new CarrerasM();
-            foreach (CarrerasM temp in data)
+            List<PlanesEstudioM> resul = new List<PlanesEstudioM>();
+            foreach (PlanesEstudioM temp in data)
             {
                 if (temp.Nombre_Carrera.Equals(filtro))
                 {
-                    resul.Codigo_Carrera = temp.Codigo_Carrera;
-                    resul.Nombre_Carrera = temp.Nombre_Carrera;
-                    resul.Descripcion_Carrera = temp.Descripcion_Carrera;
+                    PlanesEstudioM tempe = new PlanesEstudioM();
+                    tempe.Codigo_Plan = temp.Codigo_Plan;
+                    tempe.Nombre_Plan = temp.Nombre_Plan;
+                    tempe.Descripcion_Plan = temp.Descripcion_Plan;
+                    temp.Nombre_Carrera = temp.Nombre_Carrera;
+
+                    resul.Add(tempe);
                 }
             }
 
