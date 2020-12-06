@@ -136,19 +136,22 @@
                                     <p>@Model.Input.DataUser.Costo</p>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <form asp-area="Mantenimiento" asp-page="RegistrarMaterias" method="post">
-                                        @{
-                                            var dataUser = JsonConvert.SerializeObject(Model.Input.DataUser);
-                                        }
+                            @if (LUser.usuario.Rol.Equals("Admin"))
+                            {
+                                <tr>
+                                    <td>
+                                        <form asp-area="Mantenimiento" asp-page="RegistrarMaterias" method="post">
+                                            @{
+                                                var dataUser = JsonConvert.SerializeObject(Model.Input.DataUser);
+                                            }
 
-                                        <input type="hidden" name="dataMateria" value="@dataUser" />
-                                        <input type="submit" value="Editar" class="btn btn-success ">
-                                    </form>
-                                </td>
-                            </tr>
-                        </tbody>
+                                            <input type="hidden" name="dataMateria" value="@dataUser" />
+                                            <input type="submit" value="Editar" class="btn btn-success ">
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
                     </table>
                 </div>
             </div>

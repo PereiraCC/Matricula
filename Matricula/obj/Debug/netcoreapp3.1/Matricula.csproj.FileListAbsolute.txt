@@ -201,3 +201,6 @@ C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matr
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Matricular\Views\Matricular\Matricular.cshtml.g.cs
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Matricular\Views\_ViewImports.cshtml.g.cs
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Matricular\Views\_ViewStart.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Matricular\Pages\Matriculacion\PantallaMatricula.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Matricular\Pages\_ViewImports.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Matricular\Pages\_ViewStart.cshtml.g.cs

@@ -1,20 +1,20 @@
-﻿@model MatricularM
-@using Newtonsoft.Json
+﻿@page "/Matricular/Pantalla_Matricula"
+@model PantallaMatriculaModel
 @{
-    ViewData["Title"] = "Pre-Matricula";
-    string nombreCompleto = Model.estudiante.PrimerApellido + " " + Model.estudiante.SegundoApellido + " " + Model.estudiante.Nombre;
+    ViewData["Title"] = "Matricula";
+    string nombreCompleto = Model.Input_Matricula.estudiante.PrimerApellido + " " + Model.Input_Matricula.estudiante.SegundoApellido + " " + Model.Input_Matricula.estudiante.Nombre;
 }
 
 <h3>@ViewData["Title"]</h3>
 <div class="container p-4">
     <div class="form-group">
-        <form asp-area="Matricular" asp-page="/Matriculacion/PantallaMatricula" method="post">
+        <form asp-area="Matricular" asp-page="/Matriculacion/PantallaMatricula" method="get">
             <h5>Datos del Estudiante</h5>
             <div class="row">
                 <div class="form-group">
                     <div class="col-md-12">
                         <label>Identificacion</label>
-                        <input type="text" placeholder="@Model.estudiante.Identificacion" class="form-control" readonly />
+                        <input type="text" placeholder="@Model.Input_Matricula.estudiante.Identificacion" class="form-control" readonly />
                     </div>
                 </div>
                 <div class="form-group">
@@ -26,31 +26,32 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <label>Correo Electronico</label>
-                        <input type="text" placeholder="@Model.estudiante.CorreoElectronico" class="form-control" readonly />
+                        <input type="text" placeholder="@Model.Input_Matricula.estudiante.CorreoElectronico" class="form-control" readonly />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
                         <label>Carrera</label>
-                        <input type="text" placeholder="@Model.estudiante.Carrera" class="form-control" readonly />
+                        <input type="text" placeholder="@Model.Input_Matricula.estudiante.Carrera" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1">
+                        <label></label>
+                        <input type="submit" value="Pagar Matricula" class="btn btn-success">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-4">
                         <label></label>
-                        @{
-                            var dataUser = JsonConvert.SerializeObject(Model);
-                        }
-
-                        <input type="hidden" name="dataMatricula" value="@dataUser" />
-                        <input type="submit" value="Confirmar Matricula" class="btn btn-success">
+                        <a class="btn btn-secondary text-white" asp-area="Matricular" asp-controller="Matricular" asp-action="addMateria">Volver</a>
                     </div>
                 </div>
             </div>
         </form><br />
-        <h5>Materias</h5>
+        <h5>Materias ha matricular</h5>
         <div class="row">
-            @foreach (var item in Model.lista_Materias)
+            @foreach (var item in Model.Input_Matricula.lista_MateriasMatriculadas)
             {
                 <div class="col-xs-6 col-md-2">
                     <div class="card text-center">
@@ -83,31 +84,6 @@
                                             </a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            @if (Model.lista_MateriasMatriculadas == null)
-                                            {
-                                                <a asp-route-id="@item.Codigo_Materia" asp-area="Matricular" asp-controller="Matricular" asp-action="Matricular">
-                                                    <input type="submit" value="Matricular" class="btn btn-success ">
-                                                </a>
-                                            }
-                                            else
-                                            {
-                                                if (Model.lista_MateriasMatriculadas.Any(x => x.Codigo_Materia == item.Codigo_Materia))
-                                                {
-                                                    <a>
-                                                        <input type="submit" value="Matriculado" class="btn btn-secondary ">
-                                                    </a>
-                                                }
-                                                else
-                                                {
-                                                    <a asp-route-id="@item.Codigo_Materia" asp-area="Matricular" asp-controller="Matricular" asp-action="addMateria">
-                                                        <input type="submit" value="Matricular" class="btn btn-success ">
-                                                    </a>
-                                                }
-                                            }
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -117,4 +93,3 @@
         </div>
     </div>
 </div>
-
