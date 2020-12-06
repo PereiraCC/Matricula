@@ -40,11 +40,22 @@
                                     <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Mantenimiento</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="Mantenimiento">Lista Mantenimientos</a>
-                                        @*<a class="dropdown-item" asp-area="Mantenimiento" asp-page="/Account/Register">Nuevo Usuario</a>*@
+                                        <a class="dropdown-item" asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="listadoCo_Requesitos">Lista Co_Requesitos</a>
+                                        <a class="dropdown-item" asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="listadoRequesitos">Lista Requesitos</a>
+                                        <a class="dropdown-item" asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="listadoPeriodos">Lista Periodos</a>
+                                        <a class="dropdown-item" asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="listadoHorarios">Lista Horarios</a>
+                                        <a class="dropdown-item" asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="listadoMaterias">Lista Materias</a>
+                                        <a class="dropdown-item" asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="listadoCarreras">Lista Carreras</a>
+                                        <a class="dropdown-item" asp-area="Mantenimiento" asp-controller="Mantenimiento" asp-action="listadoPlanes_Estudios">Lista Planes Estudios</a>
                                     </div>
                                 </li>
                             }
-
+                            else
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link text-dark" asp-area="Matricular" asp-controller="Matricular" asp-action="Matricular">Matricula</a>
+                                </li>
+                            }
                         </ul>
                     </div>
                 }
