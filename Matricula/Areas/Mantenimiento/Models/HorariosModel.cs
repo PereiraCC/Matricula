@@ -21,9 +21,6 @@ namespace Matricula.Areas.Mantenimiento.Models
         [Required(ErrorMessage = "El campo Hora Final es requerido")]
         public string Hora_Final { get; set; }
 
-        [Required(ErrorMessage = "El campo Nombre Periodo es requerido")]
-        public string Nombre_Periodo { get; set; }
-
         [TempData]
         public string ErrorMessage { get; set; }
     }

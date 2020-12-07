@@ -53,7 +53,6 @@ namespace Matricula.Areas.Mantenimiento.Data
             cmd.Parameters.Add(new SqlParameter("@dia", data.Dia));
             cmd.Parameters.Add(new SqlParameter("@Hora_Inicial", data.Hora_Inicial));
             cmd.Parameters.Add(new SqlParameter("@Hora_Final", data.Hora_Final));
-            cmd.Parameters.Add(new SqlParameter("@nombrePeriodo", data.Nombre_Periodo));
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -111,7 +110,6 @@ namespace Matricula.Areas.Mantenimiento.Data
                 Horario.Dia = reader["Dia"].ToString();
                 Horario.Hora_Inicial = reader["Hora_Inicial"].ToString();
                 Horario.Hora_Final = reader["Hora_Final"].ToString();
-                Horario.Nombre_Periodo = reader["idPeriodo"].ToString();
             }
             reader.Close();
 

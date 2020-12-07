@@ -1,5 +1,6 @@
 ﻿using Matricula.Areas.Mantenimiento.Data;
 using Matricula.Areas.Mantenimiento.Models;
+using Matricula.Areas.Matricular.Models;
 using Matricula.Areas.Users.Data;
 using Microsoft.Data.SqlClient;
 using System;
@@ -146,5 +147,65 @@ namespace Matricula.Areas.Matricular.Data
 
             return nombre;
         }
+
+        public string registrarMatricular(MatricularM data)
+        {
+            string estado = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("RegistrarMatricula", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@IdentificacionEstudiante", data.estudiante.Identificacion));
+            cmd.Parameters.Add(new SqlParameter("@nombreCarrera", data.estudiante.Carrera));
+            cmd.Parameters.Add(new SqlParameter("@nombrePeriodo", data.Nombre_Periodo));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                estado = reader[0].ToString();
+            }
+            reader.Close();
+
+            estado = registrarMatriculaxMaterias(data.lista_MateriasMatriculadas, data.estudiante.Identificacion);
+
+            return estado;
+        } 
+
+        public string registrarMatriculaxMaterias(List<MateriasM> materias, string idEstudiante)
+        {
+            string estado = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+
+            foreach (MateriasM materia in materias)
+            {
+                SqlCommand cmd = new SqlCommand("RegistrarMatriculaxMateria", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@IdentificacionEstudiante", idEstudiante));
+                cmd.Parameters.Add(new SqlParameter("@idMateria", materia.Codigo_Materia));
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    estado = reader[0].ToString();
+                }
+                reader.Close();
+
+                if (estado.Equals("1"))
+                {
+                    break;
+                }
+                
+            }
+
+            return estado;
+        }
+
     }
 }

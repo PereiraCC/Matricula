@@ -319,7 +319,6 @@ namespace Matricula.Areas.Mantenimiento.Controllers
                     tempe.Dia = temp.Dia;
                     tempe.Hora_Inicial = temp.Hora_Inicial;
                     tempe.Hora_Final = temp.Hora_Final;
-                    tempe.Nombre_Periodo = temp.Nombre_Periodo;
 
                     resul.Add(tempe);
                 }
