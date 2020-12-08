@@ -1,4 +1,5 @@
 ﻿@page "/Matricular/Pantalla_Matricula"
+@using Newtonsoft.Json
 @model PantallaMatriculaModel
 @{
     ViewData["Title"] = "Matricula";
@@ -80,8 +81,20 @@
                                         </div>
                                     }
 
+                                    <div class="form-group">
+                                        <label asp-for="Input_Matricula.Numero_Tarjeta">Numero Tarjeta</label>
+                                        <input asp-for="Input_Matricula.Numero_Tarjeta" placeholder="" class="form-control" autofocus />
+                                        <span asp-validation-for="Input_Matricula.Numero_Tarjeta" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Input_Matricula.Monto">Monto</label>
+                                        <input asp-for="Input_Matricula.Monto" placeholder="" class="form-control" autofocus readonly/>
+                                        <span asp-validation-for="Input_Matricula.Monto" class="text-danger"></span>
+                                    </div>
+
                                     <div class="form-group text-center">
-                                        <button type="submit" class="btn btn-primary btn-block">Matricular</button>
+                                        <button type="submit" class="btn btn-primary btn-block">Matricular & Pagar</button>
                                     </div>
                                     <div class="form-group text-center">
                                         <a class="btn btn-secondary  btn-block text-white" asp-area="Matricular" asp-controller="Matricular" asp-action="addMateria">Volver</a>

@@ -23,7 +23,7 @@ namespace Matricula.Areas.Matricular.Controllers
             {
                 data = new MatricularM();
                 data.estudiante = LUser.usuario;
-                data.lista_Materias = actions.getMateriasxCarrera(LUser.usuario.Carrera);
+                data.lista_Materias = actions.getMateriasxCarrera(LUser.usuario.Carrera, LUser.usuario.Identificacion);
                 data.lista_MateriasMatriculadas = addMateriaMatricula(null,null);
             }
             return View(data);
@@ -32,7 +32,7 @@ namespace Matricula.Areas.Matricular.Controllers
         public IActionResult addMateria(string id)
         {
             data.estudiante = LUser.usuario;
-            data.lista_Materias = actions.getMateriasxCarrera(LUser.usuario.Carrera);
+            data.lista_Materias = actions.getMateriasxCarrera(LUser.usuario.Carrera, LUser.usuario.Identificacion);
             data.lista_MateriasMatriculadas = addMateriaMatricula(data.lista_MateriasMatriculadas, id);
 
 

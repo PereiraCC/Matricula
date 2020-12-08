@@ -17,6 +17,12 @@ namespace Matricula.Areas.Matricular.Models
         [Required(ErrorMessage = "El campo Nombre Periodo es requerido")]
         public string Nombre_Periodo { get; set; }
 
+        [Required(ErrorMessage = "El campo Numero_Tarjeta es requerido")]
+        public string Numero_Tarjeta { get; set; }
+
+        [Required(ErrorMessage = "El campo Monto es requerido")]
+        public string Monto { get; set; }
+
         public List<MateriasM> lista_Materias { get; set; }
 
         public List<MateriasM> lista_MateriasMatriculadas { get; set; }

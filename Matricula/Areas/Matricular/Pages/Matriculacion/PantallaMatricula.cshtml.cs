@@ -43,6 +43,7 @@ namespace Matricula.Areas.Matricular.Pages.Matriculacion
                     estudiante = _dataUser1.estudiante,
                     lista_Materias = _dataUser1.lista_Materias,
                     lista_MateriasMatriculadas = _dataUser1.lista_MateriasMatriculadas,
+                    Monto = obtenerMonto(_dataUser1.lista_MateriasMatriculadas),
                     Lista_Periodos = obtenerPeriodos(),
                 };
             }
@@ -74,7 +75,11 @@ namespace Matricula.Areas.Matricular.Pages.Matriculacion
                         return Redirect("/Matricular/Matricular?area=Matricular");
                     }
                 }
-                return Redirect("/Matricular/Pantalla_Matricula");
+                else
+                {
+                    return Redirect("/Matricular/Pantalla_Matricula");
+                }
+
             }
             else
             {
@@ -117,6 +122,20 @@ namespace Matricula.Areas.Matricular.Pages.Matriculacion
             }
 
             return LPeriodos;
+        }
+
+        public string obtenerMonto(List<MateriasM> materias)
+        {
+            string monto = "";
+            double tempMonto = 0.0;
+            
+            foreach(MateriasM materia in materias)
+            {
+                tempMonto += Double.Parse(materia.Costo.Substring(1)); 
+            }
+
+            return monto = tempMonto.ToString("0.00");
+ 
         }
     }
 }

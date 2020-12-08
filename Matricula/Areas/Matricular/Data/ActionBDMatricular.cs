@@ -25,7 +25,7 @@ namespace Matricula.Areas.Matricular.Data
             connection = con.getConnection();
         }
 
-        public List<MateriasM> getMateriasxCarrera(string nombreCarrera)
+        public List<MateriasM> getMateriasxCarrera(string nombreCarrera, string idEstudiante)
         {
             List<RequesitosM> requesitos = ActionsBDRequesitos.getRequesitos();
             List<Co_RequesitosM> co_requesitos = ActionsBDCo_Requesitos.getCo_Requesitos();
@@ -34,9 +34,10 @@ namespace Matricula.Areas.Matricular.Data
             {
                 connection.Open();
             }
-            SqlCommand cmd = new SqlCommand("ConsultarMateriasXCarrera", connection);
+            SqlCommand cmd = new SqlCommand("ConsultarMateriasXCarreraXEstudiante", connection);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@nombreCarrera", nombreCarrera));
+            cmd.Parameters.Add(new SqlParameter("@identificacionEstudiante", idEstudiante));
 
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -169,7 +170,15 @@ namespace Matricula.Areas.Matricular.Data
             }
             reader.Close();
 
-            estado = registrarMatriculaxMaterias(data.lista_MateriasMatriculadas, data.estudiante.Identificacion);
+            if (estado.Equals("0"))
+            {
+                estado = registrarMatriculaxMaterias(data.lista_MateriasMatriculadas, data.estudiante.Identificacion);
+                if (estado.Equals("0"))
+                {
+                    estado = registrarPago(data.estudiante.Identificacion, data.Numero_Tarjeta, data.Monto);
+                }
+            }
+            
 
             return estado;
         } 
@@ -207,5 +216,29 @@ namespace Matricula.Areas.Matricular.Data
             return estado;
         }
 
+        public string registrarPago(string idEstudiante, string numeroTarjeta, string Monto)
+        {
+            string estado = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+
+            SqlCommand cmd = new SqlCommand("RegistrarPago", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@IdentificacionEstudiante", idEstudiante));
+            cmd.Parameters.Add(new SqlParameter("@numeroTarjeta", numeroTarjeta));
+            cmd.Parameters.Add(new SqlParameter("@monto", Monto));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                estado = reader[0].ToString();
+            }
+            reader.Close();
+
+            return estado;
+        }
     }
 }
