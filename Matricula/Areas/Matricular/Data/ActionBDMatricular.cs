@@ -25,7 +25,52 @@ namespace Matricula.Areas.Matricular.Data
             connection = con.getConnection();
         }
 
-        public List<MateriasM> getMateriasxCarrera(string nombreCarrera, string idEstudiante)
+        public string consultarMateriasMatriculadas(string idEstudiante)
+        {
+            string estado = "0";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarMateriasMatriculadas", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@identificadorEstudiante", idEstudiante));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                estado = reader[0].ToString();
+            }
+            reader.Close();
+
+            return estado;
+        }
+
+        public string consultarMatriculaPeriodo(string idEstudiante, string nombrePeriodo)
+        {
+            string estado = "0";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarMatriculaPeriodo", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@identificadorEstudiante", idEstudiante));
+            cmd.Parameters.Add(new SqlParameter("@nombrePeriodo", nombrePeriodo));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                estado = reader[0].ToString();
+            }
+            reader.Close();
+
+            return estado;
+        }
+
+        public List<MateriasM> getMateriasxCarreraxEstudiante(string nombreCarrera, string idEstudiante)
         {
             List<RequesitosM> requesitos = ActionsBDRequesitos.getRequesitos();
             List<Co_RequesitosM> co_requesitos = ActionsBDCo_Requesitos.getCo_Requesitos();
@@ -38,6 +83,38 @@ namespace Matricula.Areas.Matricular.Data
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add(new SqlParameter("@nombreCarrera", nombreCarrera));
             cmd.Parameters.Add(new SqlParameter("@identificacionEstudiante", idEstudiante));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                MateriasM temp = new MateriasM();
+                temp.Codigo_Materia = reader["idMateria"].ToString();
+                temp.Nombre = reader["nombre"].ToString();
+                temp.Descripcion = reader["descripcion"].ToString();
+                temp.Creditos = reader["creditos"].ToString();
+                temp.Nombre_Requesito = obtenerNombreRequesitos(requesitos, reader["idRequesito"].ToString());
+                temp.NombreCo_Requesito = obtenerNombreCo_Requesitos(co_requesitos, reader["idCo_Requesito"].ToString());
+
+                materias.Add(temp);
+            }
+            reader.Close();
+
+            return materias;
+        }
+
+        public List<MateriasM> getMateriasxCarrera(string nombreCarrera)
+        {
+            List<RequesitosM> requesitos = ActionsBDRequesitos.getRequesitos();
+            List<Co_RequesitosM> co_requesitos = ActionsBDCo_Requesitos.getCo_Requesitos();
+            List<MateriasM> materias = new List<MateriasM>();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarMateriasXCarrera", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@nombreCarrera", nombreCarrera));
 
             SqlDataReader reader = cmd.ExecuteReader();
 

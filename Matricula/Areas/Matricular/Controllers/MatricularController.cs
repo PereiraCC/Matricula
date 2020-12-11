@@ -23,7 +23,15 @@ namespace Matricula.Areas.Matricular.Controllers
             {
                 data = new MatricularM();
                 data.estudiante = LUser.usuario;
-                data.lista_Materias = actions.getMateriasxCarrera(LUser.usuario.Carrera, LUser.usuario.Identificacion);
+                if (actions.consultarMateriasMatriculadas(LUser.usuario.Identificacion).Equals("0"))
+                {
+                    data.lista_Materias = actions.getMateriasxCarrera(LUser.usuario.Carrera);
+                }
+                else
+                {
+                    data.lista_Materias = actions.getMateriasxCarreraxEstudiante(LUser.usuario.Carrera, LUser.usuario.Identificacion);
+                }
+                
                 data.lista_MateriasMatriculadas = addMateriaMatricula(null,null);
             }
             return View(data);
@@ -32,7 +40,14 @@ namespace Matricula.Areas.Matricular.Controllers
         public IActionResult addMateria(string id)
         {
             data.estudiante = LUser.usuario;
-            data.lista_Materias = actions.getMateriasxCarrera(LUser.usuario.Carrera, LUser.usuario.Identificacion);
+            if (actions.consultarMateriasMatriculadas(LUser.usuario.Identificacion).Equals("0"))
+            {
+                data.lista_Materias = actions.getMateriasxCarrera(LUser.usuario.Carrera);
+            }
+            else
+            {
+                data.lista_Materias = actions.getMateriasxCarreraxEstudiante(LUser.usuario.Carrera, LUser.usuario.Identificacion);
+            }
             data.lista_MateriasMatriculadas = addMateriaMatricula(data.lista_MateriasMatriculadas, id);
 
 
@@ -61,5 +76,6 @@ namespace Matricula.Areas.Matricular.Controllers
 
             return materiasTemp;
         }
+
     }
 }
