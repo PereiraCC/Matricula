@@ -120,6 +120,12 @@ namespace Matricula
                     areaName: "Matricular",
                     pattern: "{controller=Matricular}/{action=Matricular}/{id?}");
                 endpoints.MapRazorPages();
+
+                endpoints.MapAreaControllerRoute(
+                    name: "Notas",
+                    areaName: "Notas",
+                    pattern: "{controller=Notas}/{action=InscripcionMaterias}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

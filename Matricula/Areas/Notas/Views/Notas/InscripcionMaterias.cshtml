@@ -1,0 +1,119 @@
+﻿@model NotasProfesorM
+@using Newtonsoft.Json
+@{
+    ViewData["Title"] = "Inscripcion de Materias";
+    string nombreCompleto = Model.profesor.PrimerApellido + " " + Model.profesor.SegundoApellido + " " + Model.profesor.Nombre;
+}
+
+<h3>@ViewData["Title"]</h3>
+<div class="container p-4">
+    <div class="form-group">
+        <form asp-area="Matricular" asp-page="/Matriculacion/PantallaMatricula" method="post">
+            <h5>Datos del Profesor</h5>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Identificacion</label>
+                        <input type="text" placeholder="@Model.profesor.Identificacion" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Nombre</label>
+                        <input type="text" placeholder="@nombreCompleto" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Correo Electronico</label>
+                        <input type="text" placeholder="@Model.profesor.CorreoElectronico" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Carrera</label>
+                        <input type="text" placeholder="@Model.profesor.Carrera" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label></label>
+                        @{
+                            var dataUser = JsonConvert.SerializeObject(Model);
+                        }
+
+                        <input type="hidden" name="dataMatricula" value="@dataUser" />
+                        <input type="submit" value="Confirmar Inscripcion" class="btn btn-success">
+                    </div>
+                </div>
+            </div>
+        </form><br />
+        <h5>Materias</h5>
+        <div class="row">
+            @foreach (var item in Model.listaMateriasxCarrera)
+            {
+                <div class="col-xs-6 col-md-2">
+                    <div class="card text-center">
+                        <div class="card-header ">
+                            <a asp-route-id="@item.Codigo_Materia" asp-area="Mantenimiento" asp-page="/Materias/DetalleMaterias">
+                                <img class='imageUsers' src="~/lib/Image/iconsMaterias.png" />
+                            </a>
+                        </div>
+                        <div class="card-body text-center">
+                            <table class="tableCursos">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="text-center">
+                                                <p>Codigo: @Html.DisplayFor(modelItem => item.Codigo_Materia)</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="text-center">
+                                                <p>Nombre: @Html.DisplayFor(modelItem => item.Nombre)</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a asp-route-id="@item.Codigo_Materia" asp-area="Mantenimiento" asp-page="/Materias/DetalleMaterias">
+                                                <input type="submit" value="Detalle" class="btn btn-info ">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @if (Model.lista_MateriasInscriptas == null)
+                                            {
+                                                <a asp-route-id="@item.Codigo_Materia" asp-area="Notas" asp-controller="Notas" asp-action="addMateria">
+                                                    <input type="submit" value="Inscribirse" class="btn btn-success ">
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                if (Model.lista_MateriasInscriptas.Any(x => x.Codigo_Materia == item.Codigo_Materia))
+                                                {
+                                                    <a>
+                                                        <input type="submit" value="Inscrito" class="btn btn-secondary ">
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a asp-route-id="@item.Codigo_Materia" asp-area="Notas" asp-controller="Notas" asp-action="addMateria">
+                                                        <input type="submit" value="Inscribirse" class="btn btn-success ">
+                                                    </a>
+                                                }
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

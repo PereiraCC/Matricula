@@ -52,9 +52,25 @@
                             }
                             else
                             {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link text-dark" asp-area="Matricular" asp-controller="Matricular" asp-action="Matricular">Matricula</a>
-                                </li>
+                                @if (LUser.usuario.Rol.Equals("Profesor"))
+                                {
+                                    <li class="nav-item  dropdown">
+                                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Notas</a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="nav-link text-dark" asp-area="Notas" asp-controller="Notas" asp-action="InscripcionMaterias">Inscripcion de Materias</a>
+                                            <a class="nav-link text-dark" asp-area="Notas" asp-controller="Notas" asp-action="InscripcionMaterias">Listado de Materias</a>
+                                        </div>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-dark" asp-area="Matricular" asp-controller="Matricular" asp-action="Matricular">Matricula</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-dark" asp-area="Notas" asp-controller="Notas" asp-action="InscripcionMaterias">Notas Academicas</a>
+                                    </li>
+                                }
                             }
                         </ul>
                     </div>
