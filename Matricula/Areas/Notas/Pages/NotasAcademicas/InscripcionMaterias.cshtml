@@ -1,0 +1,90 @@
+﻿@page "/Notas/InscripcionMaterias"
+
+@model InscripcionMateriasModel
+@{
+    ViewData["Title"] = "Inscripcion de Materias";
+    string nombreCompleto = Model.Input_Notas.profesor.PrimerApellido + " " + Model.Input_Notas.profesor.SegundoApellido + " " + Model.Input_Notas.profesor.Nombre;
+}
+
+<h3>@ViewData["Title"]</h3>
+<div class="container p-4">
+    <div class="form-group">
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            <h5>Datos del Profesor</h5>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Identificacion</label>
+                        <input asp-for="Input_Notas.profesor.Identificacion" placeholder="" class="form-control" autofocus readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Nombre</label>
+                        <input type="text" placeholder="@nombreCompleto" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Correo Electronico</label>
+                        <input asp-for="Input_Notas.profesor.CorreoElectronico" placeholder="" class="form-control" autofocus readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Carrera</label>
+                        <input asp-for="Input_Notas.profesor.Carrera" placeholder="" class="form-control" autofocus readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <label></label>
+                        <input type="submit" value="Inscribir" class="btn btn-success">
+                    </div>
+                </div>
+            </div>
+        </form><br />
+        <h5>Materias seleccionadas</h5>
+        <div class="row">
+            @foreach (var item in Model.Input_Notas.lista_MateriasInscriptas)
+            {
+                <div class="col-xs-6 col-md-2">
+                    <div class="card text-center">
+                        <div class="card-header ">
+                            <a asp-route-id="@item.Codigo_Materia" asp-area="Mantenimiento" asp-page="/Materias/DetalleMaterias">
+                                <img class='imageUsers' src="~/lib/Image/iconsMaterias.png" />
+                            </a>
+                        </div>
+                        <div class="card-body text-center">
+                            <table class="tableCursos">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="text-center">
+                                                <p>Codigo: @Html.DisplayFor(modelItem => item.Codigo_Materia)</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="text-center">
+                                                <p>Nombre: @Html.DisplayFor(modelItem => item.Nombre)</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a asp-route-id="@item.Codigo_Materia" asp-area="Mantenimiento" asp-page="/Materias/DetalleMaterias">
+                                                <input type="submit" value="Detalle" class="btn btn-info ">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

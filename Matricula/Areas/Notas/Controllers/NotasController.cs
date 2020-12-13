@@ -16,7 +16,7 @@ namespace Matricula.Areas.Notas.Controllers
         ActionsBDNotas actions = new ActionsBDNotas();
         public static NotasProfesorM data;
 
-        public IActionResult InscripcionMaterias()
+        public IActionResult ListaMateriasProfesor()
         {
             if (data == null)
             {
@@ -36,7 +36,7 @@ namespace Matricula.Areas.Notas.Controllers
             data.listaMateriasxCarrera = actions.getMateriasxCarrera(LUser.usuario.Carrera);
             data.lista_MateriasInscriptas = addMateriaMatricula(data.lista_MateriasInscriptas, id);
 
-            return Redirect("/Notas/InscripcionMaterias?area=Notas");
+            return Redirect("/Notas/ListaMateriasProfesor?area=Notas");
         }
 
         public List<MateriasM> addMateriaMatricula(List<MateriasM> m, string id)
@@ -61,5 +61,7 @@ namespace Matricula.Areas.Notas.Controllers
 
             return materiasTemp;
         }
+
+        
     }
 }

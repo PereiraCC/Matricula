@@ -209,7 +209,7 @@ namespace Matricula.Areas.Matricular.Pages.Matriculacion
             //Download the PDF document in the browser
             FileStreamResult fileStreamResult = new FileStreamResult(stream, "application/pdf");
 
-            fileStreamResult.FileDownloadName = nombreC + ".pdf";
+            fileStreamResult.FileDownloadName = nombreC.Trim() + ".pdf";
 
             return fileStreamResult;
         }

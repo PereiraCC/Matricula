@@ -124,7 +124,7 @@ namespace Matricula
                 endpoints.MapAreaControllerRoute(
                     name: "Notas",
                     areaName: "Notas",
-                    pattern: "{controller=Notas}/{action=InscripcionMaterias}/{id?}");
+                    pattern: "{controller=Notas}/{action=ListaMateriasProfesor}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

@@ -1,14 +1,14 @@
 ﻿@model NotasProfesorM
 @using Newtonsoft.Json
 @{
-    ViewData["Title"] = "Inscripcion de Materias";
+    ViewData["Title"] = "Listado de Materias";
     string nombreCompleto = Model.profesor.PrimerApellido + " " + Model.profesor.SegundoApellido + " " + Model.profesor.Nombre;
 }
 
 <h3>@ViewData["Title"]</h3>
 <div class="container p-4">
     <div class="form-group">
-        <form asp-area="Matricular" asp-page="/Matriculacion/PantallaMatricula" method="post">
+        <form asp-area="Notas" asp-page="/NotasAcademicas/InscripcionMaterias" method="post">
             <h5>Datos del Profesor</h5>
             <div class="row">
                 <div class="form-group">
@@ -42,7 +42,7 @@
                             var dataUser = JsonConvert.SerializeObject(Model);
                         }
 
-                        <input type="hidden" name="dataMatricula" value="@dataUser" />
+                        <input type="hidden" name="dataInscripcion" value="@dataUser" />
                         <input type="submit" value="Confirmar Inscripcion" class="btn btn-success">
                     </div>
                 </div>

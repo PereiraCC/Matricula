@@ -1,5 +1,6 @@
 ﻿using Matricula.Areas.Mantenimiento.Data;
 using Matricula.Areas.Mantenimiento.Models;
+using Matricula.Areas.Notas.Models;
 using Matricula.Areas.Users.Data;
 using Microsoft.Data.SqlClient;
 using System;
@@ -145,6 +146,39 @@ namespace Matricula.Areas.Notas.Data
             reader.Close();
 
             return Materia;
+        }
+
+        public string registrarInscripcion(NotasProfesorM data)
+        {
+            string estado = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+
+            foreach (MateriasM materia in data.lista_MateriasInscriptas)
+            {
+                SqlCommand cmd = new SqlCommand("RegistrarMateriaxProfesor", connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new SqlParameter("@IdentificacionProfesor", data.profesor.Identificacion));
+                cmd.Parameters.Add(new SqlParameter("@idMateria", materia.Codigo_Materia));
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    estado = reader[0].ToString();
+                }
+                reader.Close();
+
+                if (estado.Equals("1"))
+                {
+                    break;
+                }
+
+            }
+
+            return estado;
         }
     }
 }
