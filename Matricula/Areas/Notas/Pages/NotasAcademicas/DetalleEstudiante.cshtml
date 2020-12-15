@@ -1,0 +1,123 @@
+﻿@page "/Notas/DetalleEstudiante"
+@model DetalleEstudianteModel
+@{
+    ViewData["Title"] = "Detalle Estudiante";
+    string name = Model.Input.DataUser.estudiante.PrimerApellido + " " + Model.Input.DataUser.estudiante.SegundoApellido + " " + Model.Input.DataUser.estudiante.Nombre;
+    string fecha = Model.Input.DataUser.estudiante.FechaNacimiento.Substring(0, Model.Input.DataUser.estudiante.FechaNacimiento.Length-11);
+}
+
+<div class="container">
+    <h3>@ViewData["Title"]</h3><br />
+    <div class="row">
+        <div class="col-sm ">
+            <div class="card text-center" style="width: 21rem;">
+                <div class="card-header ">
+                    <img class='imageUserDetails' src="~/lib/Image/no_avatar.png" />
+                </div>
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p>Nombre: @Model.Input.DataUser.estudiante.Nombre</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-body">
+                    <table class="tableCursos">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    Informacion
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Identificacion
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.estudiante.Identificacion</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre completo
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@name</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Fecha de Nacimiento
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@fecha</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Correo Electronico
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.estudiante.CorreoElectronico</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Telefono
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.estudiante.Telefono</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Direccion
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.estudiante.Direccion</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Nombre Carrera
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>@Model.Input.DataUser.estudiante.Carrera</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a asp-route-id="@Model.Input.idMateria" asp-area="Notas" asp-page="/NotasAcademicas/ListadoEstudiantesMateria">
+                                        <input type="submit" value="Volver" class="btn btn-secondary ">
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

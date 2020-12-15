@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using static Matricula.Areas.Notas.Pages.NotasAcademicas.RegistroNotasModel;
 
 namespace Matricula.Areas.Notas.Data
 {
@@ -266,6 +267,137 @@ namespace Matricula.Areas.Notas.Data
             reader.Close();
 
             return data;
+        }
+
+        public string getidMateria(string nombreMateria)
+        {
+            string data = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultaridMateria", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@nombreMateria", nombreMateria));
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                data = reader["idMateria"].ToString();
+            }
+            reader.Close();
+
+            return data;
+        }
+
+        public EstudianteModel getUnEstudiante(string id)
+        {
+            EstudianteModel estudiante = new EstudianteModel();
+            int identificador = Int32.Parse(id);
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarUnEstudiante", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@idEstudiante", identificador));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                InputModelRegister tem = new InputModelRegister();
+                tem.Identificacion = reader["Cedula"].ToString();
+                tem.Nombre = reader["Nombre"].ToString();
+                tem.PrimerApellido = reader["Primer_Apellido"].ToString();
+                tem.SegundoApellido = reader["Segundo_Apellido"].ToString();
+                tem.CorreoElectronico = reader["Correo_Electronico"].ToString();
+                tem.FechaNacimiento = reader["Fecha_Nacimiento"].ToString();
+                tem.Telefono = reader["Telefono"].ToString();
+                tem.Direccion = reader["Direccion"].ToString();
+                tem.Carrera = reader["NombreCarrera"].ToString();
+
+                estudiante.estudiante = tem;
+            }
+            reader.Close();
+
+            return estudiante;
+        }
+
+        public string getNotaEstudiante(string idEstudiante, string nombreMateria)
+        {
+            string data = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarNotaEstudiante", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@idEstudiante", idEstudiante));
+            cmd.Parameters.Add(new SqlParameter("@nombreMateria", nombreMateria));
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                data = reader["Nota"].ToString();
+            }
+            reader.Close();
+
+            if (data.Equals(""))
+            {
+                data = "Sin Calificacion";
+            }
+            return data;
+        }
+
+        public string registrarNota(InputModelNotaEstudiante data)
+        {
+            string estado = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ActualizarNotaEstudiante", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@idEstudiante", data.DataUser.estudiante.Identificacion));
+            cmd.Parameters.Add(new SqlParameter("@nombreMateria", data.Nombre_Materia));
+            cmd.Parameters.Add(new SqlParameter("@nota", data.DataUser.Nota_Estudiante));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                estado = reader[0].ToString();
+            }
+            reader.Close();
+
+            return estado;
+        }
+
+        public List<MateriasM> getMateriasEstudiante(string idEstudiante)
+        {
+            List<MateriasM> materias = new List<MateriasM>();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarMateriasEstudiante", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@idEstudiante", idEstudiante));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                MateriasM temp = new MateriasM();
+                temp.Codigo_Materia = reader["idMateria"].ToString();
+                temp.Nombre = reader["nombre"].ToString();
+
+                materias.Add(temp);
+            }
+            reader.Close();
+
+            return materias;
         }
     }
 }

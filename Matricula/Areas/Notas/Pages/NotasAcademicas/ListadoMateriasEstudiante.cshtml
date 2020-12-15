@@ -1,19 +1,20 @@
-﻿@model NotasProfesorM
+﻿@page "/Notas/ListadoMateriasEstdiante"
+@model ListadoMateriasEstudianteModel
 @{
-    ViewData["Title"] = "Listado Materias Inscriptas";
-    string nombreCompleto = Model.profesor.PrimerApellido + " " + Model.profesor.SegundoApellido + " " + Model.profesor.Nombre;
+    ViewData["Title"] = "Listado de Materias de " + Model.Input.estudiante.Nombre + " " + Model.Input.estudiante.PrimerApellido;
+    string nombreCompleto = Model.Input.estudiante.PrimerApellido + " " + Model.Input.estudiante.SegundoApellido + " " + Model.Input.estudiante.Nombre;
 }
 
 <h3>@ViewData["Title"]</h3>
 <div class="container p-4">
     <div class="form-group">
-        <form asp-area="Notas" asp-controller="Notas" asp-action="ListadoMateriasProfesorInscriptas" method="get">
-            <h5>Datos del Profesor</h5>
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            <h5>Datos del Estudiante</h5>
             <div class="row">
                 <div class="form-group">
                     <div class="col-md-12">
                         <label>Identificacion</label>
-                        <input type="text" placeholder="@Model.profesor.Identificacion" class="form-control" readonly />
+                        <input asp-for="Input.estudiante.Identificacion" placeholder="" class="form-control" autofocus readonly />
                     </div>
                 </div>
                 <div class="form-group">
@@ -24,32 +25,26 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-12">
-                        <label></label>
-                        <input type="text" id="filtrar" name="filtrar" placeholder="Buscar Materia" class="form-control" autocomplete="off" />
+                        <label>Correo Electronico</label>
+                        <input asp-for="Input.estudiante.CorreoElectronico" placeholder="" class="form-control" autofocus readonly />
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-4">
-                        <label></label>
-                        <input type="submit" value="Buscar" class="btn btn-success">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <label></label>
-                        <a class="btn btn-primary" asp-area="Notas" asp-controller="Notas" asp-action="ListadoMateriasProfesorInscriptas">Todos</a>
+                    <div class="col-md-12">
+                        <label>Carrera</label>
+                        <input asp-for="Input.estudiante.Carrera" placeholder="" class="form-control" autofocus readonly />
                     </div>
                 </div>
             </div>
         </form><br />
-        <h5>Materias Inscriptas</h5>
+        <h5>Materias</h5>
         <div class="row">
-            @foreach (var item in Model.lista_MateriasInscriptas)
+            @foreach (var item in Model.Input.listaMaterias)
             {
                 <div class="col-xs-6 col-md-2">
                     <div class="card text-center">
                         <div class="card-header ">
-                            <a asp-route-id="@item.Codigo_Materia" asp-area="Notas" asp-page="/Materias/DetalleMaterias">
+                            <a asp-route-id="@item.Codigo_Materia" asp-area="Mantenimiento" asp-page="/Materias/DetalleMaterias">
                                 <img class='imageUsers' src="~/lib/Image/iconsMaterias.png" />
                             </a>
                         </div>
@@ -72,8 +67,11 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a asp-route-id="@item.Codigo_Materia" asp-area="Notas" asp-page="/NotasAcademicas/ListadoEstudiantesMateria">
-                                                <input type="submit" value="Estudiantes" class="btn btn-success ">
+                                            @{
+                                                string idEstudianteCarrera = Model.Input.estudiante.Identificacion + "," +item.Nombre;
+                                            }
+                                            <a asp-route-id="@idEstudianteCarrera" asp-area="Notas" asp-page="/NotasAcademicas/ConsultaNota">
+                                                <input type="submit" value="Nota" class="btn btn-primary ">
                                             </a>
                                         </td>
                                     </tr>

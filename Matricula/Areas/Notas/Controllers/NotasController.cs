@@ -15,6 +15,7 @@ namespace Matricula.Areas.Notas.Controllers
     {
         ActionsBDNotas actions = new ActionsBDNotas();
         public static NotasProfesorM data;
+        public static NotasProfesorM data2;
 
         public IActionResult ListaMateriasProfesor()
         {
@@ -66,17 +67,17 @@ namespace Matricula.Areas.Notas.Controllers
         {
             if (filtrar == null)
             {
-                data = new NotasProfesorM();
-                data.profesor = LUser.usuario;
-                data.lista_MateriasInscriptas = actions.getMateriasInscriptas(LUser.usuario.Identificacion);
+                data2 = new NotasProfesorM();
+                data2.profesor = LUser.usuario;
+                data2.lista_MateriasInscriptas = actions.getMateriasInscriptas(LUser.usuario.Identificacion);
             }
             else
             {
-                data = new NotasProfesorM();
-                data.profesor = LUser.usuario;
-                data.lista_MateriasInscriptas = actions.getMateriasInscriptas(LUser.usuario.Identificacion);
+                data2 = new NotasProfesorM();
+                data2.profesor = LUser.usuario;
+                data2.lista_MateriasInscriptas = actions.getMateriasInscriptas(LUser.usuario.Identificacion);
                 List<MateriasM> datafiltrada = new List<MateriasM>();
-                List<MateriasM> resul = buscarMateria(data.lista_MateriasInscriptas, filtrar);
+                List<MateriasM> resul = buscarMateria(data2.lista_MateriasInscriptas, filtrar);
                 foreach (MateriasM temp in resul)
                 {
                     if (temp.Nombre != null)
@@ -84,10 +85,10 @@ namespace Matricula.Areas.Notas.Controllers
                         datafiltrada.Add(temp);
                     }
                 }
-                data.lista_MateriasInscriptas = datafiltrada;  
+                data2.lista_MateriasInscriptas = datafiltrada;  
             }
 
-            return View(data);
+            return View(data2);
         }
 
         public List<MateriasM> buscarMateria(List<MateriasM> data, string filtro)

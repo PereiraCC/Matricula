@@ -217,3 +217,7 @@ C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matr
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Notas\Views\Notas\ListaMateriasProfesor.cshtml.g.cs
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Notas\Views\Notas\ListadoMateriasProfesorInscriptas.cshtml.g.cs
 C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Notas\Pages\NotasAcademicas\ListadoEstudiantesMateria.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Notas\Pages\NotasAcademicas\DetalleEstudiante.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Notas\Pages\NotasAcademicas\RegistroNotas.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Notas\Pages\NotasAcademicas\ListadoMateriasEstudiante.cshtml.g.cs
+C:\Users\perei\Documents\Personal\CUC\Administracion de Base Datos\Proyecto\Matricula\Matricula\obj\Debug\netcoreapp3.1\Razor\Areas\Notas\Pages\NotasAcademicas\ConsultaNota.cshtml.g.cs

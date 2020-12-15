@@ -1,0 +1,84 @@
+﻿@page "/Notas/RegistroNotas"
+@model RegistroNotasModel
+@{
+    ViewData["Title"] = "Registro de Notas de " + Model.Input_Nota_Estudiante.Nombre_Materia;
+    string nombreCompleto = Model.Input_Nota_Estudiante.DataUser.estudiante.PrimerApellido + " " + Model.Input_Nota_Estudiante.DataUser.estudiante.SegundoApellido + " " + Model.Input_Nota_Estudiante.DataUser.estudiante.Nombre;
+    string notaActual = Model.Input_Nota_Estudiante.DataUser.Nota_Estudiante;
+}
+
+<h3>@ViewData["Title"]</h3>
+<div class="container p-4">
+    <div class="form-group">
+            <h5>Datos del Estudiante</h5>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Identificacion</label>
+                        <input asp-for="Input_Nota_Estudiante.DataUser.estudiante.Identificacion" placeholder="" class="form-control" autofocus readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Nombre</label>
+                        <input type="text" placeholder="@nombreCompleto" class="form-control" readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Correo Electronico</label>
+                        <input asp-for="Input_Nota_Estudiante.DataUser.estudiante.CorreoElectronico" placeholder="" class="form-control" autofocus readonly />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label>Materia</label>
+                        <input asp-for="Input_Nota_Estudiante.Nombre_Materia" placeholder="" class="form-control" autofocus readonly />
+                    </div>
+                </div>
+            </div><br />
+        <form method="post" enctype="multipart/form-data" autocomplete="off">
+            <div class="col-xs-6 col-md-5">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <div id="header" class="bg-info">
+                                        <h2 class="mb-0 t">
+                                            <button class="btn btn-link text-light" type="button" data-toggle="collapse"
+                                                    data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                Ingresar Informacion
+                                            </button>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                     data-parent="#accordionExample">
+                                    <div class="card-body">
+              
+                                        <div class="form-group">
+                                            <label>Nota Actual</label>
+                                            <input placeholder="@notaActual" class="form-control" autofocus readonly />
+                                        </div>
+     
+                                        <div class="form-group">
+                                            @Html.DropDownList("Input_Nota_Estudiante.DataUser.Nota_Estudiante", new SelectList(Model.Input_Nota_Estudiante.listaCalificaciones, "Text", "Text"), "Seleccione una Nota", new { @class = "form-control" })
+                                            <span asp-validation-for="Input_Nota_Estudiante.DataUser.Nota_Estudiante" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="form-group text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Registrar Nota</button>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="text-danger">@Html.DisplayFor(m => m.Input_Nota_Estudiante.ErrorMessage)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
