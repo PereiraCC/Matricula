@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Matricula.Areas.Mantenimiento.Data;
 using Matricula.Areas.Mantenimiento.Models;
+using Matricula.Areas.Notas.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -27,6 +28,7 @@ namespace Matricula.Areas.Mantenimiento.Pages.Materias
         public class InputModelMaterias
         {
             public MateriasM DataUser { get; set; }
+
         }
     }
 }

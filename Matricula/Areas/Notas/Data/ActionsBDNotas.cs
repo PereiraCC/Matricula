@@ -2,6 +2,7 @@
 using Matricula.Areas.Mantenimiento.Models;
 using Matricula.Areas.Notas.Models;
 using Matricula.Areas.Users.Data;
+using Matricula.Areas.Users.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -179,6 +180,92 @@ namespace Matricula.Areas.Notas.Data
             }
 
             return estado;
+        }
+
+        public List<MateriasM> getMateriasInscriptas(string idProfesor)
+        {
+            List<RequesitosM> requesitos = ActionsBDRequesitos.getRequesitos();
+            List<Co_RequesitosM> co_requesitos = ActionsBDCo_Requesitos.getCo_Requesitos();
+            List<string> codigos = new List<string>();
+            List<MateriasM> materias = new List<MateriasM>();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarMateriasInscriptas", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@IdentificacionProfesor", idProfesor));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                codigos.Add(reader["idMateria"].ToString());
+            }
+            reader.Close();
+            
+            foreach(string dato in codigos)
+            {
+                materias.Add(getUnaMateria(dato));
+            }
+
+            return materias;
+        }
+
+        public List<EstudianteModel> getEstudiantesxMateria(string idMateria)
+        {
+            List<EstudianteModel> estudiantes = new List<EstudianteModel>();
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarEstudiantesxMateria", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@idMateria", idMateria));
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                InputModelRegister tem = new InputModelRegister();
+                tem.Identificacion = reader["Cedula"].ToString();
+                tem.Nombre = reader["Nombre"].ToString();
+                tem.PrimerApellido = reader["Primer_Apellido"].ToString();
+                tem.SegundoApellido = reader["Segundo_Apellido"].ToString();
+                tem.CorreoElectronico = reader["Correo_Electronico"].ToString();
+                tem.Telefono = reader["Telefono"].ToString();
+                tem.Direccion = reader["Direccion"].ToString();
+                tem.Carrera = reader["NombreCarrera"].ToString();
+
+                EstudianteModel estudiante = new EstudianteModel();
+                estudiante.estudiante = tem;
+                estudiantes.Add(estudiante);
+            }
+            reader.Close();
+
+            return estudiantes;
+        }
+
+        public string getNombreMateria(string id)
+        {
+            int identificador = Int32.Parse(id);
+            string data = "";
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            SqlCommand cmd = new SqlCommand("ConsultarNombreMateria", connection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add(new SqlParameter("@idMateria", identificador));
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                data = reader["nombre"].ToString();
+            }
+            reader.Close();
+
+            return data;
         }
     }
 }

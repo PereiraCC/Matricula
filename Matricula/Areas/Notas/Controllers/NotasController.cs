@@ -62,6 +62,54 @@ namespace Matricula.Areas.Notas.Controllers
             return materiasTemp;
         }
 
-        
+        public IActionResult ListadoMateriasProfesorInscriptas(string filtrar)
+        {
+            if (filtrar == null)
+            {
+                data = new NotasProfesorM();
+                data.profesor = LUser.usuario;
+                data.lista_MateriasInscriptas = actions.getMateriasInscriptas(LUser.usuario.Identificacion);
+            }
+            else
+            {
+                data = new NotasProfesorM();
+                data.profesor = LUser.usuario;
+                data.lista_MateriasInscriptas = actions.getMateriasInscriptas(LUser.usuario.Identificacion);
+                List<MateriasM> datafiltrada = new List<MateriasM>();
+                List<MateriasM> resul = buscarMateria(data.lista_MateriasInscriptas, filtrar);
+                foreach (MateriasM temp in resul)
+                {
+                    if (temp.Nombre != null)
+                    {
+                        datafiltrada.Add(temp);
+                    }
+                }
+                data.lista_MateriasInscriptas = datafiltrada;  
+            }
+
+            return View(data);
+        }
+
+        public List<MateriasM> buscarMateria(List<MateriasM> data, string filtro)
+        {
+            List<MateriasM> resul = new List<MateriasM>();
+            foreach (MateriasM temp in data)
+            {
+                if (temp.Nombre.Equals(filtro))
+                {
+                    MateriasM tempe = new MateriasM();
+                    tempe.Codigo_Materia = temp.Codigo_Materia;
+                    tempe.Nombre = temp.Nombre;
+                    tempe.Descripcion = temp.Descripcion;
+                    tempe.Creditos = temp.Creditos;
+                    tempe.Nombre_Requesito = temp.Nombre_Requesito;
+                    tempe.NombreCo_Requesito = temp.NombreCo_Requesito;
+
+                    resul.Add(tempe);
+                }
+            }
+
+            return resul;
+        }
     }
 }
